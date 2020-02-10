@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@mipmap/home_normal"
+        android:title="@string/text_home" />
+    <item
+        android:id="@+id/selected"
+        android:icon="@mipmap/select_normal"
+        android:title="@string/text_selected" />
+    <item
+        android:id="@+id/red_packet"
+        android:icon="@mipmap/red_packet_normal"
+        android:title="@string/text_red_packet" />
+    <item
+        android:id="@+id/search"
+        android:icon="@mipmap/search_normal"
+        android:title="@string/text_search" />
+</menu>

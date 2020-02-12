@@ -1,25 +1,29 @@
 package com.sunofbeaches.taobaounion.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.ui.fragment.HomeFragment;
+import com.sunofbeaches.taobaounion.utils.LogUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private BottomNavigationView mNavigationView;
+    @BindView(R.id.main_navigation_bar)
+    public BottomNavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initView();
         initListener();
     }
@@ -28,22 +32,20 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView.setOnNavigationItemSelectedListener(item -> {
             // Log.d(TAG,"title -- > " + item.getTitle() + " id -- > " + item.getItemId());
             if(item.getItemId() == R.id.home) {
-                Log.d(TAG,"切换到首页");
+                LogUtils.d(MainActivity.class,"切换到首页");
                 //TODO
             } else if(item.getItemId() == R.id.selected) {
-                Log.d(TAG,"切换到精选");
+                LogUtils.i(MainActivity.class,"切换到精选");
             } else if(item.getItemId() == R.id.red_packet) {
-                Log.d(TAG,"切换到特惠");
+                LogUtils.w(MainActivity.class,"切换到特惠");
             } else if(item.getItemId() == R.id.search) {
-                Log.d(TAG,"切换到搜索");
+                LogUtils.e(MainActivity.class,"切换到搜索");
             }
             return true;
         });
     }
 
     private void initView() {
-        mNavigationView = this.findViewById(R.id.main_navigation_bar);
-
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();

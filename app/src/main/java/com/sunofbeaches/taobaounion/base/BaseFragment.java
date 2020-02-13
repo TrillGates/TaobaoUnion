@@ -13,11 +13,13 @@ import androidx.fragment.app.Fragment;
 public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup
+            container,@Nullable Bundle savedInstanceState) {
         return loadRootView(inflater,container,savedInstanceState);
     }
 
-    protected View loadRootView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+    protected View loadRootView(LayoutInflater inflater,ViewGroup container,
+                                Bundle savedInstanceState) {
         int resId = getRootViewResId();
         return inflater.inflate(resId,container,false);
     }

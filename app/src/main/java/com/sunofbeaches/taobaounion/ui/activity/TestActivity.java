@@ -25,24 +25,21 @@ public class TestActivity extends Activity {
     }
 
     private void initListener() {
-        navigationBar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group,int checkedId) {
-                // LogUtils.d(TestActivity.class,"checkedId -- > " + checkedId);
-                switch(checkedId) {
-                    case R.id.test_home:
-                        LogUtils.d(TestActivity.class,"切换到首页");
-                        break;
-                    case R.id.test_selected:
-                        LogUtils.d(TestActivity.class,"切换到精选页面");
-                        break;
-                    case R.id.test_search:
-                        LogUtils.d(TestActivity.class,"切换到搜索页面");
-                        break;
-                    case R.id.test_red_packet:
-                        LogUtils.d(TestActivity.class,"切换到特惠");
-                        break;
-                }
+        navigationBar.setOnCheckedChangeListener((group,checkedId) -> {
+            // LogUtils.d(TestActivity.class,"checkedId -- > " + checkedId);
+            switch(checkedId) {
+                case R.id.test_home:
+                    LogUtils.d(TestActivity.class,"切换到首页");
+                    break;
+                case R.id.test_selected:
+                    LogUtils.d(TestActivity.class,"切换到精选页面");
+                    break;
+                case R.id.test_search:
+                    LogUtils.d(TestActivity.class,"切换到搜索页面");
+                    break;
+                case R.id.test_red_packet:
+                    LogUtils.d(TestActivity.class,"切换到特惠");
+                    break;
             }
         });
     }

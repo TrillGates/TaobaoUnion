@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListener() {
         mNavigationView.setOnNavigationItemSelectedListener(item -> {
-            // Log.d(TAG,"title -- > " + item.getTitle() + " id -- > " + item.getItemId());
             if(item.getItemId() == R.id.home) {
                 LogUtils.d(MainActivity.class,"切换到首页");
                 switchFragment(mHomeFragment);

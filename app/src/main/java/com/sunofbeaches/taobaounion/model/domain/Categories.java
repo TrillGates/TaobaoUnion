@@ -73,5 +73,23 @@ public class Categories {
         public void setTitle(String title) {
             this.title = title;
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "id=" + id +
+                    ", title='" + title + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

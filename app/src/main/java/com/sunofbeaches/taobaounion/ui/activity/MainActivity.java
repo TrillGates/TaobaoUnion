@@ -48,16 +48,16 @@ public class MainActivity extends AppCompatActivity {
     private void initListener() {
         mNavigationView.setOnNavigationItemSelectedListener(item -> {
             if(item.getItemId() == R.id.home) {
-                LogUtils.d(MainActivity.class,"切换到首页");
+                LogUtils.d(this,"切换到首页");
                 switchFragment(mHomeFragment);
             } else if(item.getItemId() == R.id.selected) {
-                LogUtils.i(MainActivity.class,"切换到精选");
+                LogUtils.i(this,"切换到精选");
                 switchFragment(mSelectedFragment);
             } else if(item.getItemId() == R.id.red_packet) {
-                LogUtils.w(MainActivity.class,"切换到特惠");
+                LogUtils.w(this,"切换到特惠");
                 switchFragment(mRedPacketFragment);
             } else if(item.getItemId() == R.id.search) {
-                LogUtils.e(MainActivity.class,"切换到搜索");
+                LogUtils.e(this,"切换到搜索");
                 switchFragment(mSearchFragment);
             }
             return true;

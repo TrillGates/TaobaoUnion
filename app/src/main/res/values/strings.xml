@@ -4,5 +4,6 @@
     <string name="text_selected">精选</string>
     <string name="text_red_packet">特惠</string>
     <string name="text_search">搜索</string>
+    <string name="search_tips_text">搜你想搜索..的宝贝</string>
 
 </resources>

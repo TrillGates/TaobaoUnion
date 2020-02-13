@@ -11,11 +11,33 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public abstract class BaseFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup
             container,@Nullable Bundle savedInstanceState) {
-        return loadRootView(inflater,container,savedInstanceState);
+        View rootView = loadRootView(inflater,container,savedInstanceState);
+        initPresenter();
+        loadData();
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        release();
+    }
+
+    protected void release() {
+        //释放资源
+    }
+
+    protected void initPresenter() {
+        //创建Presenter
+    }
+
+    protected void loadData() {
+        //加载数据
     }
 
     protected View loadRootView(LayoutInflater inflater,ViewGroup container,

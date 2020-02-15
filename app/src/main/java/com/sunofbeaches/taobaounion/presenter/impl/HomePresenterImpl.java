@@ -16,6 +16,8 @@ import retrofit2.Retrofit;
 
 public class HomePresenterImpl implements IHomePresenter {
 
+    private IHomeCallback mCallback = null;
+
     @Override
     public void getCategories() {
         //加载分类数据
@@ -31,7 +33,10 @@ public class HomePresenterImpl implements IHomePresenter {
                 if(code == HttpURLConnection.HTTP_OK) {
                     //请求成功
                     Categories categories = response.body();
-                    LogUtils.d(HomePresenterImpl.this,categories.toString());
+                    //LogUtils.d(HomePresenterImpl.this,categories.toString());
+                    if(mCallback != null) {
+                        mCallback.onCategoriesLoaded(categories);
+                    }
                 } else {
                     //请求失败
                     LogUtils.i(HomePresenterImpl.this,"请求失败...");
@@ -48,11 +53,11 @@ public class HomePresenterImpl implements IHomePresenter {
 
     @Override
     public void registerCallback(IHomeCallback callback) {
-
+        this.mCallback = callback;
     }
 
     @Override
     public void unregisterCallback(IHomeCallback callback) {
-
+        mCallback = null;
     }
 }

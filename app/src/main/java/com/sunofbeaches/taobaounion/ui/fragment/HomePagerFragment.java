@@ -36,8 +36,8 @@ public class HomePagerFragment extends BaseFragment {
         Bundle arguments = getArguments();
         String title = arguments.getString(Constants.KEY_HOME_PAGER_TITLE);
         int materialId = arguments.getInt(Constants.KEY_HOME_PAGER_MATERIAL_ID);
-        //TODO:加载数据
         LogUtils.d(this,"title -- > " + title);
         LogUtils.d(this,"materialId -- > " + materialId);
+        //TODO:加载数据
     }
 }

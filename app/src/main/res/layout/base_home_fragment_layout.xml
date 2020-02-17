@@ -37,7 +37,7 @@
             android:layout_toRightOf="@id/logo"
             android:background="@drawable/shape_edit_box_bg"
             android:focusable="false"
-            android:hint="@string/search_tips_text"
+            android:hint="@string/text_search_tips"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textSize="14sp" />

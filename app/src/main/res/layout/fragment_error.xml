@@ -5,9 +5,27 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:id="@+id/network_error_tips"
         android:layout_height="wrap_content"
-        android:text="网络错误，请点击重试.." />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:src="@mipmap/wifi" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_network_error_tips"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

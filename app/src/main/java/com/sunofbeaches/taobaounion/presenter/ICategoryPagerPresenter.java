@@ -1,6 +1,9 @@
 package com.sunofbeaches.taobaounion.presenter;
 
-public interface ICategoryPagerPresenter {
+import com.sunofbeaches.taobaounion.base.IBasePresenter;
+import com.sunofbeaches.taobaounion.view.ICategoryPagerCallback;
+
+public interface ICategoryPagerPresenter extends IBasePresenter<ICategoryPagerCallback> {
     /**
      * 根据分类id去获取内容
      *

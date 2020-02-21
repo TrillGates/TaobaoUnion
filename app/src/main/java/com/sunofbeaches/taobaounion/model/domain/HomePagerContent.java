@@ -5,6 +5,16 @@ import java.util.List;
 public class HomePagerContent {
 
 
+    @Override
+    public String toString() {
+        return "HomePagerContent{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     /**
      * success : true
      * code : 10000
@@ -50,6 +60,15 @@ public class HomePagerContent {
     }
 
     public static class DataBean {
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "category_id=" + category_id +
+                    ", category_name=" + category_name +
+                    ", click_url='" + click_url + '\'' +
+                    '}';
+        }
+
         /**
          * category_id : 50013196
          * category_name : null

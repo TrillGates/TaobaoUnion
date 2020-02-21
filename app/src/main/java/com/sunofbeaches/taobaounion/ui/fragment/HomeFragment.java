@@ -72,7 +72,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     }
 
     @Override
-    public void onNetworkError() {
+    public void onError() {
         setUpState(State.ERROR);
     }
 

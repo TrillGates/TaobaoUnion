@@ -26,7 +26,17 @@ public class LooperPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container,int position) {
-        HomePagerContent.DataBean dataBean = mData.get(position);
+        //处理一下越界问题
+        int realPosition = position % mData.size();
+        //size = 5 == > 0,1,2,3,4
+        // 0  --> 0
+        //1 -- > 1
+        //2 -- > 2
+        //3 -- > 3
+        //4 -- > 4
+        //5 -- > 0
+        //6 -- > 1
+        HomePagerContent.DataBean dataBean = mData.get(realPosition);
         String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url());
         ImageView iv = new ImageView(container.getContext());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
@@ -39,7 +49,7 @@ public class LooperPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override

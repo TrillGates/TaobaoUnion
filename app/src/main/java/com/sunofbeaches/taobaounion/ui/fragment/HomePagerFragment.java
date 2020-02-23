@@ -1,8 +1,10 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sunofbeaches.taobaounion.R;
@@ -15,6 +17,7 @@ import com.sunofbeaches.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.sunofbeaches.taobaounion.utils.Constants;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
+import com.sunofbeaches.taobaounion.utils.SizeUtils;
 import com.sunofbeaches.taobaounion.view.ICategoryPagerCallback;
 
 import java.util.List;
@@ -50,6 +53,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @BindView(R.id.home_pager_title)
     public TextView currentCategoryTitleTv;
+
+    @BindView(R.id.looper_point_container)
+    public LinearLayout looperPointContainer;
 
     @Override
     protected int getRootViewResId() {
@@ -145,6 +151,27 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public void onLooperListLoaded(List<HomePagerContent.DataBean> contents) {
         LogUtils.d(this,"looper size - - > " + contents.size());
         mLooperPagerAdapter.setData(contents);
+        looperPointContainer.removeAllViews();
+        GradientDrawable selecteDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.shape_indicator_point);
+        GradientDrawable normalDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.shape_indicator_point);
+        normalDrawable.setColor(getContext().getColor(R.color.white));
+        //设置到中间点
+        looperPager.setCurrentItem(Integer.MAX_VALUE / 2);
+        //添加点
+        for(int i = 0; i < contents.size(); i++) {
+            View point = new View(getContext());
+            int size = SizeUtils.dip2px(getContext(),8);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size,size);
+            layoutParams.leftMargin = SizeUtils.dip2px(getContext(),5);
+            layoutParams.rightMargin = SizeUtils.dip2px(getContext(),5);
+            point.setLayoutParams(layoutParams);
+            if(i == 0) {
+                point.setBackground(selecteDrawable);
+            } else {
+                point.setBackground(normalDrawable);
+            }
+            looperPointContainer.addView(point);
+        }
     }
 
     @Override

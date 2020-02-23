@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -22,9 +23,11 @@
             android:id="@+id/goods_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:text="石墨烯加热眼罩热敷usb充电发热睡觉遮光睡眠男女护眼缓解眼疲劳热眼罩热敷usb充…"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/goods_off_prise"
@@ -39,7 +42,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -49,21 +52,25 @@
                 android:textColor="@color/colorPrimary" />
 
             <TextView
+                android:id="@+id/goods_after_off_prise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="19.80"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
+                android:id="@+id/goods_original_prise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="￥23"
-                android:textColor="@color/colorGrey" />
+                android:textColor="@color/colorGrey"
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/goods_sell_count"
                 android:layout_marginLeft="10dp"
                 android:text="1000人已经购买"
                 android:textColor="@color/colorGrey" />

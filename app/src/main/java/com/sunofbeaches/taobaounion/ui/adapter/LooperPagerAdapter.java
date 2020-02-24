@@ -23,6 +23,10 @@ public class LooperPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    public int getDataSize() {
+        return mData.size();
+    }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container,int position) {

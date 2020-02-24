@@ -1,7 +1,6 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
 import android.graphics.Rect;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -60,6 +59,44 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @Override
     protected int getRootViewResId() {
         return R.layout.fragment_home_pager;
+    }
+
+    @Override
+    protected void initListener() {
+        looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position,float positionOffset,int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                int targetPosition = position % mLooperPagerAdapter.getDataSize();
+                //切换指示器
+                updateLooperIndicator(targetPosition);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    /**
+     * 切换指示器
+     *
+     * @param targetPosition
+     */
+    private void updateLooperIndicator(int targetPosition) {
+        for(int i = 0; i < looperPointContainer.getChildCount(); i++) {
+            View point = looperPointContainer.getChildAt(i);
+            if(i == targetPosition) {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_selected);
+            } else {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
+            }
+        }
     }
 
     @Override
@@ -151,12 +188,14 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public void onLooperListLoaded(List<HomePagerContent.DataBean> contents) {
         LogUtils.d(this,"looper size - - > " + contents.size());
         mLooperPagerAdapter.setData(contents);
-        looperPointContainer.removeAllViews();
-        GradientDrawable selecteDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.shape_indicator_point);
-        GradientDrawable normalDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.shape_indicator_point);
-        normalDrawable.setColor(getContext().getColor(R.color.white));
+        //中间点%数据的size不一定为0，所以显示的就不是第一个。
+        //处理一下
+        int dx = (Integer.MAX_VALUE / 2) % contents.size();
+        int targetCenterPosition = (Integer.MAX_VALUE / 2) - dx;
         //设置到中间点
-        looperPager.setCurrentItem(Integer.MAX_VALUE / 2);
+        looperPager.setCurrentItem(targetCenterPosition);
+        LogUtils.d(this," url  -- >" + contents.get(0).getPict_url());
+        looperPointContainer.removeAllViews();
         //添加点
         for(int i = 0; i < contents.size(); i++) {
             View point = new View(getContext());
@@ -166,9 +205,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             layoutParams.rightMargin = SizeUtils.dip2px(getContext(),5);
             point.setLayoutParams(layoutParams);
             if(i == 0) {
-                point.setBackground(selecteDrawable);
+                point.setBackgroundResource(R.drawable.shape_indicator_point_selected);
             } else {
-                point.setBackground(normalDrawable);
+                point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
             }
             looperPointContainer.addView(point);
         }

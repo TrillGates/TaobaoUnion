@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
@@ -17,6 +19,7 @@ import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.sunofbeaches.taobaounion.utils.Constants;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
+import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.sunofbeaches.taobaounion.view.ICategoryPagerCallback;
 
 import java.util.List;
@@ -56,6 +59,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @BindView(R.id.looper_point_container)
     public LinearLayout looperPointContainer;
 
+    @BindView(R.id.home_pager_refresh)
+    public TwinklingRefreshLayout twinklingRefreshLayout;
+
     @Override
     protected int getRootViewResId() {
         return R.layout.fragment_home_pager;
@@ -82,6 +88,17 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        twinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                LogUtils.d(HomePagerFragment.this,"触发了Loader more...");
+                //去加载更多的内容
+                if(mPagerPresenter != null) {
+                    mPagerPresenter.loaderMore(mMaterialId);
+                }
             }
         });
     }
@@ -121,6 +138,10 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         mLooperPagerAdapter = new LooperPagerAdapter();
         //设置适配器
         looperPager.setAdapter(mLooperPagerAdapter);
+        //设置Refresh相关属性
+        twinklingRefreshLayout.setEnableRefresh(false);
+        twinklingRefreshLayout.setEnableLoadmore(true);
+        //twinklingRefreshLayout.setBottomView();
     }
 
     @Override
@@ -174,17 +195,28 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     public void onLoaderMoreError() {
-
+        ToastUtil.showToast("网络异常，请稍后重试");
+        if(twinklingRefreshLayout != null) {
+            twinklingRefreshLayout.finishLoadmore();
+        }
     }
 
     @Override
     public void onLoaderMoreEmpty() {
-
+        ToastUtil.showToast("没有更多商品");
+        if(twinklingRefreshLayout != null) {
+            twinklingRefreshLayout.finishLoadmore();
+        }
     }
 
     @Override
     public void onLoaderMoreLoaded(List<HomePagerContent.DataBean> contents) {
-
+        //添加到适配器数据的底部
+        mContentAdapter.addData(contents);
+        if(twinklingRefreshLayout != null) {
+            twinklingRefreshLayout.finishLoadmore();
+        }
+        ToastUtil.showToast("加载了" + contents.size() + "条数据");
     }
 
     @Override

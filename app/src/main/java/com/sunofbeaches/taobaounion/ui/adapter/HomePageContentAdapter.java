@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContentAdapter.InnerHolder> {
-    List<HomePagerContent.DataBean> data = new ArrayList<>();
+    List<HomePagerContent.DataBean> mData = new ArrayList<>();
 
 
     @NonNull
@@ -34,20 +34,28 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder,int position) {
-        HomePagerContent.DataBean dataBean = data.get(position);
+        HomePagerContent.DataBean dataBean = mData.get(position);
         //设置数据
         holder.setData(dataBean);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mData.size();
     }
 
     public void setData(List<HomePagerContent.DataBean> contents) {
-        data.clear();
-        data.addAll(contents);
+        mData.clear();
+        mData.addAll(contents);
         notifyDataSetChanged();
+    }
+
+    public void addData(List<HomePagerContent.DataBean> contents) {
+        //添加之前拿到原来的size
+        int olderSize = mData.size();
+        mData.addAll(contents);
+        //更新UI
+        notifyItemRangeChanged(olderSize,contents.size());
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
@@ -83,7 +91,7 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
             Glide.with(context).load(UrlUtils.getCoverPath(dataBean.getPict_url())).into(cover);
             String finalPrise = dataBean.getZk_final_price();
             long couponAmount = dataBean.getCoupon_amount();
-           // LogUtils.d(this,"final prise -- > " + finalPrise);
+            // LogUtils.d(this,"final prise -- > " + finalPrise);
             float resultPrise = Float.parseFloat(finalPrise) - couponAmount;
             //LogUtils.d(this,"result prise -- -> " + resultPrise);
             finalPriseTv.setText(String.format("%.2f",resultPrise));

@@ -2,10 +2,12 @@ package com.sunofbeaches.taobaounion.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
+import com.sunofbeaches.taobaounion.utils.ToastUtil;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -22,6 +24,11 @@ public class TestActivity extends Activity {
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
         initListener();
+    }
+
+    public void showToast(View view) {
+        //Toast.makeText(this,"测试...",Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast("测试....");
     }
 
     private void initListener() {

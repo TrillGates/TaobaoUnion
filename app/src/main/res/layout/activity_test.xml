@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showToast"
+        android:text="测试toast"
+        android:textAllCaps="false" />
+
 
     <RadioGroup
         android:id="@+id/test_navigation_bar"

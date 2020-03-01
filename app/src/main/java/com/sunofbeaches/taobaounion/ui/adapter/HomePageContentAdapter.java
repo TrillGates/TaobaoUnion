@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
+import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.UrlUtils;
 
 import java.util.ArrayList;
@@ -28,12 +29,14 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
+        LogUtils.d(this,"onCreateViewHolder....");
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pager_content,parent,false);
         return new InnerHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder,int position) {
+        LogUtils.d(this,"onBindViewHolder...." + position);
         HomePagerContent.DataBean dataBean = mData.get(position);
         //设置数据
         holder.setData(dataBean);

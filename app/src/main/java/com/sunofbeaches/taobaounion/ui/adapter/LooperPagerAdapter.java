@@ -41,7 +41,12 @@ public class LooperPagerAdapter extends PagerAdapter {
         //5 -- > 0
         //6 -- > 1
         HomePagerContent.DataBean dataBean = mData.get(realPosition);
-        String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url());
+        int measuredHeight = container.getMeasuredHeight();
+        int measuredWidth = container.getMeasuredWidth();
+//        LogUtils.d(this,"measuredHeight -- > " + measuredHeight);
+//        LogUtils.d(this,"measuredWidth  -- > " + measuredWidth);
+        int ivSize = (measuredWidth > measuredHeight ? measuredWidth : measuredHeight) / 2;
+        String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url(),ivSize);
         ImageView iv = new ImageView(container.getContext());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         iv.setLayoutParams(layoutParams);

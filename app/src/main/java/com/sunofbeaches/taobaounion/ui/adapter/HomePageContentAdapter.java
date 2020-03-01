@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContentAdapter.InnerHolder> {
     List<HomePagerContent.DataBean> mData = new ArrayList<>();
-
+    private static final String TAG = "HomePageContentAdapter";
 
     @NonNull
     @Override
@@ -60,6 +60,7 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
 
     public class InnerHolder extends RecyclerView.ViewHolder {
 
+
         @BindView(R.id.goods_cover)
         public ImageView cover;
 
@@ -87,8 +88,14 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
         public void setData(HomePagerContent.DataBean dataBean) {
             Context context = itemView.getContext();
             title.setText(dataBean.getTitle());
+            ViewGroup.LayoutParams layoutParams = cover.getLayoutParams();
+            int width = layoutParams.width;
+            int height = layoutParams.height;
+            int coverSize = (width > height ? width : height) / 2;
             //LogUtils.d(this,"url == > " + dataBean.getPict_url());
-            Glide.with(context).load(UrlUtils.getCoverPath(dataBean.getPict_url())).into(cover);
+            String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(),coverSize);
+            //LogUtils.d(TAG,"coverPath --- > " + coverPath);
+            Glide.with(context).load(coverPath).into(cover);
             String finalPrise = dataBean.getZk_final_price();
             long couponAmount = dataBean.getCoupon_amount();
             // LogUtils.d(this,"final prise -- > " + finalPrise);

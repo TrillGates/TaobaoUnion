@@ -13,6 +13,7 @@
     <!--        android:layout_height="match_parent">-->
 
     <com.sunofbeaches.taobaounion.ui.custom.TbNestedScrollView
+        android:id="@+id/home_pager_nested_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never">
@@ -24,30 +25,37 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/home_pager_header_container"
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:layout_marginBottom="14dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/looper_pager"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:overScrollMode="never" />
+                    android:layout_height="125dp"
+                    android:layout_marginBottom="14dp">
 
-                <LinearLayout
-                    android:id="@+id/looper_point_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal" />
-            </RelativeLayout>
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/looper_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
 
+                    <LinearLayout
+                        android:id="@+id/looper_point_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+                </RelativeLayout>
 
-            <!--标题-->
-            <include layout="@layout/include_home_pager_title_part" />
+                <!--标题-->
+                <include layout="@layout/include_home_pager_title_part" />
+
+            </LinearLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView

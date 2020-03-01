@@ -8,9 +8,13 @@ import com.sunofbeaches.taobaounion.utils.LogUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 
 public class TbNestedScrollView extends NestedScrollView {
+    private int mHeaderHeight = 0;
+    private int originScroll = 0;
+
     public TbNestedScrollView(@NonNull Context context) {
         super(context);
     }
@@ -23,12 +27,26 @@ public class TbNestedScrollView extends NestedScrollView {
         super(context,attrs,defStyleAttr);
     }
 
+    public void setHeaderHeight(int headerHeight) {
+        this.mHeaderHeight = headerHeight;
+    }
 
     @Override
-    public void onNestedScroll(@NonNull View target,int dxConsumed,int dyConsumed,
-                               int dxUnconsumed,int dyUnconsumed,int type,@NonNull int[] consumed) {
-        super.onNestedScroll(target,dxConsumed,dyConsumed,dxUnconsumed,dyUnconsumed,type,consumed);
-        LogUtils.d(this,"onNestedScroll...");
+    public void onNestedPreScroll(@NonNull View target,int dx,int dy,@NonNull int[] consumed,
+                                  @ViewCompat.NestedScrollType int type) {
+        LogUtils.d(this,"dy === > " + dy);
+        if(originScroll < mHeaderHeight) {
+            scrollBy(dx,dy);
+            consumed[0] = dx;
+            consumed[1] = dy;
+        }
+        super.onNestedPreScroll(target,dx,dy,consumed,type);
+    }
 
+    @Override
+    protected void onScrollChanged(int l,int t,int oldl,int oldt) {
+        this.originScroll = t;
+        LogUtils.d(this,"vertical -- > " + t);
+        super.onScrollChanged(l,t,oldl,oldt);
     }
 }

@@ -26,11 +26,14 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
     List<HomePagerContent.DataBean> mData = new ArrayList<>();
     private static final String TAG = "HomePageContentAdapter";
 
+    private int testCount = 1;
+
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
-        LogUtils.d(this,"onCreateViewHolder....");
+        LogUtils.d(this,"onCreateViewHolder...." + testCount);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pager_content,parent,false);
+        testCount++;
         return new InnerHolder(itemView);
     }
 

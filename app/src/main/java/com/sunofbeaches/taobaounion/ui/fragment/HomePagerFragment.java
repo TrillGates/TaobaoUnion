@@ -15,6 +15,7 @@ import com.sunofbeaches.taobaounion.presenter.ICategoryPagerPresenter;
 import com.sunofbeaches.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
+import com.sunofbeaches.taobaounion.ui.custom.TbNestedScrollView;
 import com.sunofbeaches.taobaounion.utils.Constants;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
@@ -57,8 +58,15 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @BindView(R.id.looper_point_container)
     public LinearLayout looperPointContainer;
+
     @BindView(R.id.home_pager_parent)
     public LinearLayout homePagerParent;
+
+    @BindView(R.id.home_pager_header_container)
+    public LinearLayout homeHeaderContainer;
+
+    @BindView(R.id.home_pager_nested_scroller)
+    public TbNestedScrollView homePagerNestedView;
 
     //    @BindView(R.id.home_pager_refresh)
     //    public TwinklingRefreshLayout twinklingRefreshLayout;
@@ -73,6 +81,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                int headerHeight = homeHeaderContainer.getMeasuredHeight();
+                LogUtils.d(HomePagerFragment.this,"headerHeight -- > " + headerHeight);
+                homePagerNestedView.setHeaderHeight(headerHeight);
                 int measuredHeight = homePagerParent.getMeasuredHeight();
                 LogUtils.d(HomePagerFragment.this,"measuredHeight... -- > " + measuredHeight);
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
@@ -81,7 +92,6 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
                 mContentList.setLayoutParams(layoutParams);
                 if(measuredHeight != 0) {
                     homePagerParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
                 }
             }
         });

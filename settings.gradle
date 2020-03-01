@@ -1,2 +1,2 @@
-include ':app'
-rootProject.name='TaobaoUnion'
+include ':app', ':refreshlibrary'
+rootProject.name = 'TaobaoUnion'

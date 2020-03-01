@@ -57,7 +57,7 @@ public class CategoryPagePresenterImpl implements ICategoryPagerPresenter {
                 int code = response.code();
                 if(code == HttpURLConnection.HTTP_OK) {
                     HomePagerContent pageContent = response.body();
-                    LogUtils.d(CategoryPagePresenterImpl.this,"page content -- > " + pageContent);
+                    //LogUtils.d(CategoryPagePresenterImpl.this,"page content -- > " + pageContent);
                     //把数据给到UI更新
                     handleHomePageContentResult(pageContent,categoryId);
                 } else {
@@ -126,7 +126,7 @@ public class CategoryPagePresenterImpl implements ICategoryPagerPresenter {
                 LogUtils.d(CategoryPagePresenterImpl.this,"result code -- > " + code);
                 if(code == HttpURLConnection.HTTP_OK) {
                     HomePagerContent result = response.body();
-                   // LogUtils.d(CategoryPagePresenterImpl.this,"result -- > " + result.toString());
+                    // LogUtils.d(CategoryPagePresenterImpl.this,"result -- > " + result.toString());
                     handleLoaderResult(result,categoryId);
                 } else {
                     handleLoaderMoreError(categoryId);

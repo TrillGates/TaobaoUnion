@@ -12,7 +12,7 @@
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent">-->
 
-    <androidx.core.widget.NestedScrollView
+    <com.sunofbeaches.taobaounion.ui.custom.TbNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never">
@@ -58,7 +58,7 @@
                 android:overScrollMode="never" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </com.sunofbeaches.taobaounion.ui.custom.TbNestedScrollView>
 
     <!--    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>-->
 

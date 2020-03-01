@@ -57,7 +57,6 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @BindView(R.id.looper_point_container)
     public LinearLayout looperPointContainer;
-
     @BindView(R.id.home_pager_parent)
     public LinearLayout homePagerParent;
 

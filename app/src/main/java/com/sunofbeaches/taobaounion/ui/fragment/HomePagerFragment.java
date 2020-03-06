@@ -18,6 +18,7 @@ import com.sunofbeaches.taobaounion.presenter.ICategoryPagerPresenter;
 import com.sunofbeaches.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
+import com.sunofbeaches.taobaounion.ui.custom.AutoLoopViewPager;
 import com.sunofbeaches.taobaounion.utils.Constants;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
@@ -53,7 +54,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public RecyclerView mContentList;
 
     @BindView(R.id.looper_pager)
-    public ViewPager looperPager;
+    public AutoLoopViewPager looperPager;
 
     @BindView(R.id.home_pager_title)
     public TextView currentCategoryTitleTv;
@@ -76,6 +77,22 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @Override
     protected int getRootViewResId() {
         return R.layout.fragment_home_pager;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //可见的我们去调用开始轮播
+        looperPager.startLoop();
+        LogUtils.d(this,"onResume...");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //不可见的时候暂停
+        looperPager.stopLoop();
+        LogUtils.d(this,"onPause...");
     }
 
     @Override
@@ -176,6 +193,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         mLooperPagerAdapter = new LooperPagerAdapter();
         //设置适配器
         looperPager.setAdapter(mLooperPagerAdapter);
+        looperPager.setDuration(5000);
         //设置Refresh相关属性
         twinklingRefreshLayout.setEnableRefresh(false);
         twinklingRefreshLayout.setEnableLoadmore(true);

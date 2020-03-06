@@ -1,9 +1,8 @@
 package com.sunofbeaches.taobaounion.ui.activity;
 
-import android.os.Bundle;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sunofbeaches.taobaounion.R;
+import com.sunofbeaches.taobaounion.base.BaseActivity;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.ui.fragment.HomeFragment;
 import com.sunofbeaches.taobaounion.ui.fragment.RedPacketFragment;
@@ -11,14 +10,11 @@ import com.sunofbeaches.taobaounion.ui.fragment.SearchFragment;
 import com.sunofbeaches.taobaounion.ui.fragment.SelectedFragment;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.main_navigation_bar)
     public BottomNavigationView mNavigationView;
@@ -27,24 +23,22 @@ public class MainActivity extends AppCompatActivity {
     private SelectedFragment mSelectedFragment;
     private SearchFragment mSearchFragment;
     private FragmentManager mFm;
-    private Unbinder mBind;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mBind = ButterKnife.bind(this);
-        initFragments();
+    protected void initEvent() {
         initListener();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(mBind != null) {
-            mBind.unbind();
-        }
+    protected void initView() {
+        initFragments();
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_main;
+    }
+
 
     private void initFragments() {
         mHomeFragment = new HomeFragment();

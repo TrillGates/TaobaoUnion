@@ -23,25 +23,30 @@ import butterknife.ButterKnife;
 
 public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContentAdapter.InnerHolder> {
     List<HomePagerContent.DataBean> mData = new ArrayList<>();
-    private static final String TAG = "HomePageContentAdapter";
+    private OnListeItemClickListener mItemClickListener = null;
 
-    private int testCount = 1;
 
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
-//        LogUtils.d(this,"onCreateViewHolder...." + testCount);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pager_content,parent,false);
-        testCount++;
         return new InnerHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder,int position) {
-//        LogUtils.d(this,"onBindViewHolder...." + position);
         HomePagerContent.DataBean dataBean = mData.get(position);
         //设置数据
         holder.setData(dataBean);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mItemClickListener != null) {
+                    HomePagerContent.DataBean item = mData.get(position);
+                    mItemClickListener.onItemClick(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -112,5 +117,13 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
             originalPriseTv.setText(String.format(context.getString(R.string.text_goods_original_prise),finalPrise));
             sellCountTv.setText(String.format(context.getString(R.string.text_goods_sell_count),dataBean.getVolume()));
         }
+    }
+
+    public void setOnListeItemClickListener(OnListeItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public interface OnListeItemClickListener {
+        void onItemClick(HomePagerContent.DataBean item);
     }
 }

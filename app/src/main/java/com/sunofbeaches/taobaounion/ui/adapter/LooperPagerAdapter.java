@@ -17,6 +17,7 @@ import androidx.viewpager.widget.PagerAdapter;
 public class LooperPagerAdapter extends PagerAdapter {
 
     private List<HomePagerContent.DataBean> mData = new ArrayList<>();
+    private OnLooperPageItemClickListener mItemClickListener = null;
 
     @Override
     public void destroyItem(@NonNull ViewGroup container,int position,@NonNull Object object) {
@@ -43,8 +44,8 @@ public class LooperPagerAdapter extends PagerAdapter {
         HomePagerContent.DataBean dataBean = mData.get(realPosition);
         int measuredHeight = container.getMeasuredHeight();
         int measuredWidth = container.getMeasuredWidth();
-//        LogUtils.d(this,"measuredHeight -- > " + measuredHeight);
-//        LogUtils.d(this,"measuredWidth  -- > " + measuredWidth);
+        //        LogUtils.d(this,"measuredHeight -- > " + measuredHeight);
+        //        LogUtils.d(this,"measuredWidth  -- > " + measuredWidth);
         int ivSize = (measuredWidth > measuredHeight ? measuredWidth : measuredHeight) / 2;
         String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url(),ivSize);
         ImageView iv = new ImageView(container.getContext());
@@ -52,6 +53,15 @@ public class LooperPagerAdapter extends PagerAdapter {
         iv.setLayoutParams(layoutParams);
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Glide.with(container.getContext()).load(coverUrl).into(iv);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mItemClickListener != null) {
+                    HomePagerContent.DataBean item = mData.get(realPosition);
+                    mItemClickListener.onLooperItemClick(item);
+                }
+            }
+        });
         container.addView(iv);
         return iv;
     }
@@ -70,5 +80,13 @@ public class LooperPagerAdapter extends PagerAdapter {
         mData.clear();
         mData.addAll(contents);
         notifyDataSetChanged();
+    }
+
+    public void setOnLooperPageItemClickListener(OnLooperPageItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public interface OnLooperPageItemClickListener {
+        void onLooperItemClick(HomePagerContent.DataBean item);
     }
 }

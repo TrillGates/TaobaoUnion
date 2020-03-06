@@ -74,9 +74,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 上一次显示的fragment
+     */
+    private BaseFragment lastOneFragment = null;
+
     private void switchFragment(BaseFragment targetFragment) {
+        //修改成add和hide的方式来控制Fragment的切换
         FragmentTransaction fragmentTransaction = mFm.beginTransaction();
-        fragmentTransaction.replace(R.id.main_page_container,targetFragment);
+        if(!targetFragment.isAdded()) {
+            fragmentTransaction.add(R.id.main_page_container,targetFragment);
+        } else {
+            fragmentTransaction.show(targetFragment);
+        }
+        if(lastOneFragment != null) {
+            fragmentTransaction.hide(lastOneFragment);
+        }
+        lastOneFragment = targetFragment;
+        //fragmentTransaction.replace(R.id.main_page_container,targetFragment);
         fragmentTransaction.commit();
     }
 

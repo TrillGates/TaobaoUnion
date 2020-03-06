@@ -83,11 +83,14 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                if(homeHeaderContainer == null) {
+                    return;
+                }
                 int headerHeight = homeHeaderContainer.getMeasuredHeight();
-                LogUtils.d(HomePagerFragment.this,"headerHeight -- > " + headerHeight);
+                //                LogUtils.d(HomePagerFragment.this,"headerHeight -- > " + headerHeight);
                 homePagerNestedView.setHeaderHeight(headerHeight);
                 int measuredHeight = homePagerParent.getMeasuredHeight();
-                LogUtils.d(HomePagerFragment.this,"measuredHeight... -- > " + measuredHeight);
+                //                LogUtils.d(HomePagerFragment.this,"measuredHeight... -- > " + measuredHeight);
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
                 //                LogUtils.d(HomePagerFragment.this,"layoutParams.height -=== > " + layoutParams.height);
                 layoutParams.height = measuredHeight;
@@ -101,7 +104,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             @Override
             public void onClick(View v) {
                 int measuredHeight = mContentList.getMeasuredHeight();
-                LogUtils.d(HomePagerFragment.this,"measuredHeight  == > " + measuredHeight);
+                //                LogUtils.d(HomePagerFragment.this,"measuredHeight  == > " + measuredHeight);
             }
         });
         looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

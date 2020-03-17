@@ -10,9 +10,9 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.presenter.IHomePresenter;
-import com.sunofbeaches.taobaounion.presenter.impl.HomePresenterImpl;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePagerAdapter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
+import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.view.IHomeCallback;
 
 import androidx.annotation.NonNull;
@@ -63,7 +63,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     @Override
     protected void initPresenter() {
         //创建Presenter
-        mHomePresenter = new HomePresenterImpl();
+        mHomePresenter = PresenterManager.getInstance().getHomePresenter();
         mHomePresenter.registerViewCallback(this);
     }
 

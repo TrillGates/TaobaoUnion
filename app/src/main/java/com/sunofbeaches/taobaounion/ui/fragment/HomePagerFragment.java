@@ -16,13 +16,14 @@ import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
 import com.sunofbeaches.taobaounion.presenter.ICategoryPagerPresenter;
-import com.sunofbeaches.taobaounion.presenter.impl.CategoryPagePresenterImpl;
+import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
 import com.sunofbeaches.taobaounion.ui.activity.TicketActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.sunofbeaches.taobaounion.ui.custom.AutoLoopViewPager;
 import com.sunofbeaches.taobaounion.utils.Constants;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
+import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
 import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.sunofbeaches.taobaounion.view.ICategoryPagerCallback;
@@ -206,7 +207,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     protected void initPresenter() {
-        mPagerPresenter = CategoryPagePresenterImpl.getInstance();
+        mPagerPresenter = PresenterManager.getInstance().getCategoryPagePresenter();
         mPagerPresenter.registerViewCallback(this);
     }
 
@@ -323,7 +324,13 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     }
 
     private void handleItemClick(HomePagerContent.DataBean item) {
-        //TODO:处理数据
+        //处理数据
+        String title = item.getTitle();
+        String url = item.getClick_url();
+        String cover = item.getPict_url();
+        //拿到tiketPresenter去加载数据
+        ITicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
+        ticketPresenter.getTicket(title,url,cover);
         startActivity(new Intent(getContext(),TicketActivity.class));
     }
 

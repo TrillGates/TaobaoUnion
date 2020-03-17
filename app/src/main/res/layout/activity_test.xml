@@ -5,11 +5,17 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/test_toast_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="showToast"
         android:text="测试toast"
         android:textAllCaps="false" />
+
+    <com.sunofbeaches.taobaounion.ui.custom.LoadingView
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_below="@id/test_toast_btn" />
 
 
     <RadioGroup

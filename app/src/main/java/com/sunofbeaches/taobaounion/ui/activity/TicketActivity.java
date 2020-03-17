@@ -1,5 +1,10 @@
 package com.sunofbeaches.taobaounion.ui.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -16,6 +21,7 @@ import com.sunofbeaches.taobaounion.model.domain.TicketResult;
 import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
+import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.sunofbeaches.taobaounion.utils.UrlUtils;
 import com.sunofbeaches.taobaounion.view.ITicketPagerCallback;
 
@@ -93,6 +99,32 @@ public class TicketActivity extends BaseActivity implements ITicketPagerCallback
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        mOpenOrCopyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //复制淘口令
+                //拿到内容
+                String ticketCode = mTicketCode.getText().toString().trim();
+                LogUtils.d(TicketActivity.this,"ticketCode --- > " + ticketCode);
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                //复制到粘贴板
+                ClipData clipData = ClipData.newPlainText("sob_taobao_ticket_code",ticketCode);
+                cm.setPrimaryClip(clipData);
+                //判断有没有淘宝
+                if(mHasTabaoApp) {
+                    //如果有就打开淘宝
+                    Intent taobaoIntent = new Intent();
+                    //taobaoIntent.setAction("android.intent.action.MAIN");
+                    //taobaoIntent.addCategory("android.intent.category.LAUNCHER");
+                    ComponentName componentName = new ComponentName("com.taobao.taobao","com.taobao.tao.welcome.Welcome");
+                    taobaoIntent.setComponent(componentName);
+                    startActivity(taobaoIntent);
+                } else {
+                    //没有提示复制成功
+                    ToastUtil.showToast("已经复制,粘贴分享,或打开淘宝");
+                }
             }
         });
     }

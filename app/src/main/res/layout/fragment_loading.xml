@@ -5,9 +5,14 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <com.sunofbeaches.taobaounion.ui.custom.LoadingView
+        android:layout_width="33dp"
+        android:layout_height="33dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="加载中.." />
+        android:layout_marginTop="10dp"
+        android:text="@string/text_loading_tips" />
 
 </LinearLayout>

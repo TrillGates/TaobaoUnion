@@ -11,9 +11,9 @@
         android:background="@color/colorPrimary">
 
         <ImageView
+            android:id="@+id/ticket_back_press"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ticket_back_press"
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:src="@mipmap/back" />
@@ -27,12 +27,37 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/ticket_cover"
+    <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="33dp"
-        android:background="@color/gray" />
+        android:layout_marginTop="33dp">
+
+        <ImageView
+            android:id="@+id/ticket_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+
+        <com.sunofbeaches.taobaounion.ui.custom.LoadingView
+            android:id="@+id/ticket_cover_loading"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_centerInParent="true" />
+
+
+        <TextView
+            android:id="@+id/ticket_load_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="加载出错，请点击重试"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
 
     <EditText
         android:id="@+id/ticket_code"

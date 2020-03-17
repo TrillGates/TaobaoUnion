@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 import com.sunofbeaches.taobaounion.R;
-import com.sunofbeaches.taobaounion.utils.LogUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -31,7 +30,7 @@ public class LoadingView extends AppCompatImageView {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mNeedRotate = true;
-        LogUtils.d(this,"onAttachedToWindow...");
+        //LogUtils.d(this,"onAttachedToWindow...");
         startRotate();
     }
 
@@ -60,7 +59,7 @@ public class LoadingView extends AppCompatImageView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        LogUtils.d(this,"onDetachedFromWindow...");
+        //LogUtils.d(this,"onDetachedFromWindow...");
         stopRotate();
     }
 

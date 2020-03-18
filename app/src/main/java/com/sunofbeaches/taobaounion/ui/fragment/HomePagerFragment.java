@@ -3,6 +3,7 @@ package com.sunofbeaches.taobaounion.ui.fragment;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -326,7 +327,11 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     private void handleItemClick(HomePagerContent.DataBean item) {
         //处理数据
         String title = item.getTitle();
-        String url = item.getClick_url();
+        //详情的地址
+        String url = item.getCoupon_click_url();
+        if(TextUtils.isEmpty(url)) {
+            url = item.getClick_url();
+        }
         String cover = item.getPict_url();
         //拿到tiketPresenter去加载数据
         ITicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();

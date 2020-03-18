@@ -118,7 +118,8 @@ public class TicketActivity extends BaseActivity implements ITicketPagerCallback
                     Intent taobaoIntent = new Intent();
                     //taobaoIntent.setAction("android.intent.action.MAIN");
                     //taobaoIntent.addCategory("android.intent.category.LAUNCHER");
-                    ComponentName componentName = new ComponentName("com.taobao.taobao","com.taobao.tao.welcome.Welcome");
+                    //com.taobao.taobao/com.taobao.tao.TBMainActivity
+                    ComponentName componentName = new ComponentName("com.taobao.taobao","com.taobao.tao.TBMainActivity");
                     taobaoIntent.setComponent(componentName);
                     startActivity(taobaoIntent);
                 } else {

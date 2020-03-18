@@ -10,6 +10,7 @@
         android:id="@+id/goods_cover"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginLeft="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
@@ -68,9 +69,9 @@
                 android:textSize="11sp" />
 
             <TextView
+                android:id="@+id/goods_sell_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/goods_sell_count"
                 android:layout_marginLeft="10dp"
                 android:text="1000人已经购买"
                 android:textColor="@color/colorGrey" />

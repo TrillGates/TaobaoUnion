@@ -11,5 +11,6 @@
     <string name="text_goods_sell_count">%1$d人已经购买</string>
     <string name="text_tao_kou_ling">淘口令</string>
     <string name="text_loading_tips">玩命加载中...</string>
+    <string name="text_selected_title">精选宝贝</string>
 
 </resources>

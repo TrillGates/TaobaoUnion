@@ -6,6 +6,7 @@ import com.sunofbeaches.taobaounion.model.domain.SelectedPageCategory;
 import com.sunofbeaches.taobaounion.presenter.ISelectedPagePresenter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.RetrofitManager;
+import com.sunofbeaches.taobaounion.utils.UrlUtils;
 import com.sunofbeaches.taobaounion.view.ISelectedPageCallback;
 
 import java.net.HttpURLConnection;
@@ -21,6 +22,7 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
     private SelectedPageCategory.DataBean mCurrentCategoryItem = null;
 
     public SelectedPagePresenterImpl() {
+        //拿retrofit
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
         mApi = retrofit.create(Api.class);
     }
@@ -32,7 +34,6 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
         if(mViewCallback != null) {
             mViewCallback.onLoading();
         }
-        //拿retrofit
         Call<SelectedPageCategory> task = mApi.getSelectedPageCategories();
         task.enqueue(new Callback<SelectedPageCategory>() {
             @Override
@@ -66,7 +67,10 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
     @Override
     public void getContentByCategory(SelectedPageCategory.DataBean item) {
         this.mCurrentCategoryItem = item;
-        Call<SelectedContent> task = mApi.getSelectedPageContent(item.getFavorites_id());
+        int categoryId = item.getFavorites_id();
+        LogUtils.d(this,"categoryId -= > " + categoryId);
+        String targetUrl = UrlUtils.getSelectedPageContentUrl(categoryId);
+        Call<SelectedContent> task = mApi.getSelectedPageContent(targetUrl);
         task.enqueue(new Callback<SelectedContent>() {
             @Override
             public void onResponse(Call<SelectedContent> call,Response<SelectedContent> response) {
@@ -75,7 +79,7 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
                 if(resultCode == HttpURLConnection.HTTP_OK) {
                     SelectedContent result = response.body();
                     if(mViewCallback != null) {
-                        mViewCallback.onContentLoaed(result);
+                        mViewCallback.onContentLoaded(result);
                     }
                 } else {
                     onLoadedError();

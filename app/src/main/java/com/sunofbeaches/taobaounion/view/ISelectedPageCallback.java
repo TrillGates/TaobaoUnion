@@ -19,6 +19,6 @@ public interface ISelectedPageCallback extends IBaseCallback {
      *
      * @param content
      */
-    void onContentLoaed(SelectedContent content);
+    void onContentLoaded(SelectedContent content);
 
 }

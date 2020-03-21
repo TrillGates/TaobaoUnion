@@ -19,6 +19,7 @@ public class SelectedPageLeftAdapter extends RecyclerView.Adapter<SelectedPageLe
     private List<SelectedPageCategory.DataBean> mData = new ArrayList<>();
 
     private int mCurrentSelectedPosition = 0;
+    private OnLeftItemClickListener mItemClickListener = null;
 
     @NonNull
     @Override
@@ -37,6 +38,17 @@ public class SelectedPageLeftAdapter extends RecyclerView.Adapter<SelectedPageLe
         }
         SelectedPageCategory.DataBean dataBean = mData.get(position);
         itemTv.setText(dataBean.getFavorites_title());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mItemClickListener != null && mCurrentSelectedPosition != position) {
+                    //修改当前选中的位置
+                    mCurrentSelectedPosition = position;
+                    mItemClickListener.onLeftItemClick(dataBean);
+                    notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
@@ -56,11 +68,22 @@ public class SelectedPageLeftAdapter extends RecyclerView.Adapter<SelectedPageLe
             this.mData.addAll(data);
             notifyDataSetChanged();
         }
+        if(mData.size() > 0) {
+            mItemClickListener.onLeftItemClick(mData.get(mCurrentSelectedPosition));
+        }
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
         }
+    }
+
+    public void setOnLeftItemClickListener(OnLeftItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public interface OnLeftItemClickListener {
+        void onLeftItemClick(SelectedPageCategory.DataBean item);
     }
 }

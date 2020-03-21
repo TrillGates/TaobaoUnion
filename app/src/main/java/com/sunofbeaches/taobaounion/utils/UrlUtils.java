@@ -10,7 +10,11 @@ public class UrlUtils {
     }
 
     public static String getCoverPath(String pict_url) {
-        return "https:" + pict_url;
+        if(pict_url.startsWith("http") || pict_url.startsWith("https")) {
+            return pict_url;
+        } else {
+            return "https:" + pict_url;
+        }
     }
 
     public static String getTicketUrl(String url) {

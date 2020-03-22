@@ -48,6 +48,14 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
 
 
     @Override
+    protected void onRetryClick() {
+        //重试
+        if(mSelectedPagePresenter != null) {
+            mSelectedPagePresenter.reloadContent();
+        }
+    }
+
+    @Override
     protected void release() {
         super.release();
         if(mSelectedPagePresenter != null) {
@@ -110,7 +118,7 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
 
     @Override
     public void onError() {
-
+        setUpState(State.ERROR);
     }
 
     @Override

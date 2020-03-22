@@ -5,7 +5,7 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseActivity;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.ui.fragment.HomeFragment;
-import com.sunofbeaches.taobaounion.ui.fragment.RedPacketFragment;
+import com.sunofbeaches.taobaounion.ui.fragment.OnSellFragment;
 import com.sunofbeaches.taobaounion.ui.fragment.SearchFragment;
 import com.sunofbeaches.taobaounion.ui.fragment.SelectedFragment;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.main_navigation_bar)
     public BottomNavigationView mNavigationView;
     private HomeFragment mHomeFragment;
-    private RedPacketFragment mRedPacketFragment;
+    private OnSellFragment mRedPacketFragment;
     private SelectedFragment mSelectedFragment;
     private SearchFragment mSearchFragment;
     private FragmentManager mFm;
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
 
     private void initFragments() {
         mHomeFragment = new HomeFragment();
-        mRedPacketFragment = new RedPacketFragment();
+        mRedPacketFragment = new OnSellFragment();
         mSelectedFragment = new SelectedFragment();
         mSearchFragment = new SearchFragment();
         mFm = getSupportFragmentManager();

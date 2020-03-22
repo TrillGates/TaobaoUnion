@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sob="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    sob:cardBackgroundColor="@color/white"
+    sob:cardElevation="4dp"
+    sob:contentPadding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+                android:id="@+id/on_sell_cover"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/on_sell_content_title_tv"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="艾叶生姜红花老姜草本泡脚中药包男女足浴粉包祛濕去艾叶生姜红花老姜草本泡脚中药包男女足浴粉包祛濕去濕.."
+            android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/on_sell_origin_prise_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥58.9 "
+                android:textColor="#D0021B"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/on_sell_off_prise_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="券后价：28.8"
+                android:textColor="#D0021B"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

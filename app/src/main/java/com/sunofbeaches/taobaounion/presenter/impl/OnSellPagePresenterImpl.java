@@ -67,7 +67,7 @@ public class OnSellPagePresenterImpl implements IOnSellPagePresenter {
                 if(isEmpty(result)) {
                     onEmpty();
                 } else {
-                    mOnSellPageCallback.onContentLoadedSeuccess(result);
+                    mOnSellPageCallback.onContentLoadedSuccess(result);
                 }
             } catch(Exception e) {
                 e.printStackTrace();
@@ -150,9 +150,10 @@ public class OnSellPagePresenterImpl implements IOnSellPagePresenter {
     private void onMoreLoaded(OnSellContent result) {
         if(mOnSellPageCallback != null) {
             if(isEmpty(result)) {
-                mOnSellPageCallback.onMoreLoaded(result);
-            } else {
+                mCurrentPage--;
                 mOnSellPageCallback.onMoreLoadedEmpty();
+            } else {
+                mOnSellPageCallback.onMoreLoaded(result);
             }
         }
     }

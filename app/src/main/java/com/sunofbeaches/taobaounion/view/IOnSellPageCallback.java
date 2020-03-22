@@ -10,7 +10,7 @@ public interface IOnSellPageCallback extends IBaseCallback {
      *
      * @param result
      */
-    void onContentLoadedSeuccess(OnSellContent result);
+    void onContentLoadedSuccess(OnSellContent result);
 
     /**
      * 加载更多的结果

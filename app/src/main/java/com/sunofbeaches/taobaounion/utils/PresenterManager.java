@@ -2,10 +2,12 @@ package com.sunofbeaches.taobaounion.utils;
 
 import com.sunofbeaches.taobaounion.presenter.ICategoryPagerPresenter;
 import com.sunofbeaches.taobaounion.presenter.IHomePresenter;
+import com.sunofbeaches.taobaounion.presenter.IOnSellPagePresenter;
 import com.sunofbeaches.taobaounion.presenter.ISelectedPagePresenter;
 import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
 import com.sunofbeaches.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.sunofbeaches.taobaounion.presenter.impl.HomePresenterImpl;
+import com.sunofbeaches.taobaounion.presenter.impl.OnSellPagePresenterImpl;
 import com.sunofbeaches.taobaounion.presenter.impl.SelectedPagePresenterImpl;
 import com.sunofbeaches.taobaounion.presenter.impl.TicketPresenterImpl;
 
@@ -15,6 +17,7 @@ public class PresenterManager {
     private final IHomePresenter mHomePresenter;
     private final ITicketPresenter mTicketPresenter;
     private final ISelectedPagePresenter mSelectedPagePresenter;
+    private final IOnSellPagePresenter mOnSellPagePresenter;
 
     public ITicketPresenter getTicketPresenter() {
         return mTicketPresenter;
@@ -36,10 +39,15 @@ public class PresenterManager {
         return mSelectedPagePresenter;
     }
 
+    public IOnSellPagePresenter getOnSellPagePresenter() {
+        return mOnSellPagePresenter;
+    }
+
     private PresenterManager() {
         mCategoryPagePresenter = new CategoryPagePresenterImpl();
         mHomePresenter = new HomePresenterImpl();
         mTicketPresenter = new TicketPresenterImpl();
         mSelectedPagePresenter = new SelectedPagePresenterImpl();
+        mOnSellPagePresenter = new OnSellPagePresenterImpl();
     }
 }

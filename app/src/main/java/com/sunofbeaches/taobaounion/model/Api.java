@@ -2,6 +2,7 @@ package com.sunofbeaches.taobaounion.model;
 
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
+import com.sunofbeaches.taobaounion.model.domain.OnSellContent;
 import com.sunofbeaches.taobaounion.model.domain.SelectedContent;
 import com.sunofbeaches.taobaounion.model.domain.SelectedPageCategory;
 import com.sunofbeaches.taobaounion.model.domain.TicketParams;
@@ -27,6 +28,9 @@ public interface Api {
     @GET("recommend/categories")
     Call<SelectedPageCategory> getSelectedPageCategories();
 
-    @GET()
+    @GET
     Call<SelectedContent> getSelectedPageContent(@Url String url);
+
+    @GET
+    Call<OnSellContent> getOnSellPageContent(@Url String url);
 }

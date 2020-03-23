@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
 import com.sunofbeaches.taobaounion.utils.UrlUtils;
 
 import java.util.ArrayList;
@@ -124,6 +125,6 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
     }
 
     public interface OnListeItemClickListener {
-        void onItemClick(HomePagerContent.DataBean item);
+        void onItemClick(IBaseInfo item);
     }
 }

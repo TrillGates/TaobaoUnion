@@ -1,9 +1,7 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -16,9 +14,8 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
 import com.sunofbeaches.taobaounion.presenter.ICategoryPagerPresenter;
-import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
-import com.sunofbeaches.taobaounion.ui.activity.TicketActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.sunofbeaches.taobaounion.ui.custom.AutoLoopViewPager;
@@ -26,6 +23,7 @@ import com.sunofbeaches.taobaounion.utils.Constants;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
+import com.sunofbeaches.taobaounion.utils.TicketUtil;
 import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.sunofbeaches.taobaounion.view.ICategoryPagerCallback;
 
@@ -318,29 +316,18 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     }
 
     @Override
-    public void onItemClick(HomePagerContent.DataBean item) {
+    public void onItemClick(IBaseInfo item) {
         //列表内容被点击了
         LogUtils.d(this,"list item click --- > " + item.getTitle());
         handleItemClick(item);
     }
 
-    private void handleItemClick(HomePagerContent.DataBean item) {
-        //处理数据
-        String title = item.getTitle();
-        //详情的地址
-        String url = item.getCoupon_click_url();
-        if(TextUtils.isEmpty(url)) {
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        //拿到tiketPresenter去加载数据
-        ITicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
-        ticketPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(),TicketActivity.class));
+    private void handleItemClick(IBaseInfo item) {
+        TicketUtil.toTicketPage(getContext(),item);
     }
 
     @Override
-    public void onLooperItemClick(HomePagerContent.DataBean item) {
+    public void onLooperItemClick(IBaseInfo item) {
         //轮播图内容被点击了
         LogUtils.d(this,"looper item click --- > " + item.getTitle());
         handleItemClick(item);

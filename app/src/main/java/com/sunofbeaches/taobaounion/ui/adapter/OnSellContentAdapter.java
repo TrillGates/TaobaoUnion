@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sunofbeaches.taobaounion.R;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.OnSellContent;
 import com.sunofbeaches.taobaounion.utils.UrlUtils;
 
@@ -109,6 +110,6 @@ public class OnSellContentAdapter extends RecyclerView.Adapter<OnSellContentAdap
     }
 
     public interface OnSellPageItemClickListener {
-        void onSellItemClick(OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean data);
+        void onSellItemClick(IBaseInfo data);
     }
 }

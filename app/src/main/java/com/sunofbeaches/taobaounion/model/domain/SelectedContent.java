@@ -61,7 +61,6 @@ public class SelectedContent {
     public static class DataBean {
 
 
-
         /**
          * tbk_uatm_favorites_item_get_response : {"results":{"favoriteId":0,"uatm_tbk_item":[{"click_url":"https://s.click.taobao.com/t?e=m%3D2%26s%3DQqgvXVwF4QAcQipKwQzePOeEDrYVVa64yK8Cckff7TXjf2vlNIV67lbA7kVj6DOjxeoNewupcd6YzwUb1bbXppZwHxYkBYTUeP8T%2BYUOOiuIOBqu0asPv%2F0jCkSDmD6DKe3%2FbelnU7chre9gvq5P3zKYVV1BId1rfp5HoTJX0vWplyh2W4e4BPxr1c6V5LsG1hjz2dNwkcRt%2ByMzJ8mpM%2Fe7B5ZkP8EjSdChf3U3iXY%2B5QowgvHJPA%3D%3D&unid=19902751&union_lens=lensId:0b012096_0c74_16ec657c76b_e230","coupon_click_url":"https://uland.taobao.com/coupon/edetail?e=TBIJTibAhO4GQASttHIRqQA9fN4MifAG7tS89T6GqASOeUcSvy%2FHYmF5qFnaO9996DeX2ucVKhvHjZlrd41oqDEL25HyNw0xJ4FRquMv%2FTtFRuNP9Tp9RQH%2FlwNDrBX3XYsE5g93lTYZao0HO%2FvX0w%3D%3D&union_lens=lensId:0b012096_0c74_16ec657c76b_e230","coupon_end_time":"2019-12-07","coupon_info":"满7元减5元","coupon_remain_count":99635,"coupon_start_time":"2019-12-01","coupon_total_count":100000,"event_end_time":"1970-01-01 00:00:00","event_start_time":"1970-01-01 00:00:00","item_url":"https://item.taobao.com/item.htm?id=595184094985","num_iid":595184094985,"pict_url":"https://img.alicdn.com/tfscom/i1/1744991291/O1CN01J58x6I1LPJqtM61gh_!!0-item_pic.jpg","reserve_price":"45.00","status":1,"title":"纳雷特原装正品适用 OPPO数据线闪充R9 R15 R11s R11 R11s plus R9s R7安卓手机原厂快充短充电器头线2米加长","tk_rate":"9.00","type":4,"user_type":1,"volume":11450,"zk_final_price":"10.90","zk_final_price_wap":"10.90"}]},"total_results":26,"request_id":"sa9tsfbr1uco"}
          */
@@ -136,7 +135,7 @@ public class SelectedContent {
                     this.uatm_tbk_item = uatm_tbk_item;
                 }
 
-                public static class UatmTbkItemBean {
+                public static class UatmTbkItemBean implements IBaseInfo {
                     /**
                      * click_url : https://s.click.taobao.com/t?e=m%3D2%26s%3DQqgvXVwF4QAcQipKwQzePOeEDrYVVa64yK8Cckff7TXjf2vlNIV67lbA7kVj6DOjxeoNewupcd6YzwUb1bbXppZwHxYkBYTUeP8T%2BYUOOiuIOBqu0asPv%2F0jCkSDmD6DKe3%2FbelnU7chre9gvq5P3zKYVV1BId1rfp5HoTJX0vWplyh2W4e4BPxr1c6V5LsG1hjz2dNwkcRt%2ByMzJ8mpM%2Fe7B5ZkP8EjSdChf3U3iXY%2B5QowgvHJPA%3D%3D&unid=19902751&union_lens=lensId:0b012096_0c74_16ec657c76b_e230
                      * coupon_click_url : https://uland.taobao.com/coupon/edetail?e=TBIJTibAhO4GQASttHIRqQA9fN4MifAG7tS89T6GqASOeUcSvy%2FHYmF5qFnaO9996DeX2ucVKhvHjZlrd41oqDEL25HyNw0xJ4FRquMv%2FTtFRuNP9Tp9RQH%2FlwNDrBX3XYsE5g93lTYZao0HO%2FvX0w%3D%3D&union_lens=lensId:0b012096_0c74_16ec657c76b_e230
@@ -295,8 +294,18 @@ public class SelectedContent {
                         this.status = status;
                     }
 
+                    @Override
+                    public String getCover() {
+                        return pict_url;
+                    }
+
                     public String getTitle() {
                         return title;
+                    }
+
+                    @Override
+                    public String getUrl() {
+                        return coupon_click_url == null ? click_url : coupon_click_url;
                     }
 
                     public void setTitle(String title) {

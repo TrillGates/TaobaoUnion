@@ -1,8 +1,6 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Rect;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,13 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.OnSellContent;
 import com.sunofbeaches.taobaounion.presenter.IOnSellPagePresenter;
-import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
-import com.sunofbeaches.taobaounion.ui.activity.TicketActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.OnSellContentAdapter;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
+import com.sunofbeaches.taobaounion.utils.TicketUtil;
 import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.sunofbeaches.taobaounion.view.IOnSellPageCallback;
 
@@ -157,19 +155,7 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback,
     }
 
     @Override
-    public void onSellItemClick(OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean item) {
-        //特惠列表内容被点击
-        //处理数据
-        String title = item.getTitle();
-        //详情的地址
-        String url = item.getCoupon_click_url();
-        if(TextUtils.isEmpty(url)) {
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        //拿到tiketPresenter去加载数据
-        ITicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
-        ticketPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(),TicketActivity.class));
+    public void onSellItemClick(IBaseInfo item) {
+        TicketUtil.toTicketPage(getContext(),item);
     }
 }

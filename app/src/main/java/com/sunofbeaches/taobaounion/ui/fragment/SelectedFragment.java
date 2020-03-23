@@ -1,8 +1,6 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Rect;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +8,16 @@ import android.widget.TextView;
 
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.SelectedContent;
 import com.sunofbeaches.taobaounion.model.domain.SelectedPageCategory;
 import com.sunofbeaches.taobaounion.presenter.ISelectedPagePresenter;
-import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
-import com.sunofbeaches.taobaounion.ui.activity.TicketActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.SelectedPageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.SelectedPageLeftAdapter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
+import com.sunofbeaches.taobaounion.utils.TicketUtil;
 import com.sunofbeaches.taobaounion.view.ISelectedPageCallback;
 
 import androidx.annotation.NonNull;
@@ -27,7 +25,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class SelectedFragment extends BaseFragment implements ISelectedPageCallback, SelectedPageLeftAdapter.OnLeftItemClickListener, SelectedPageContentAdapter.OnSelectedPageContentItemClickListener {
+public class SelectedFragment extends BaseFragment
+        implements ISelectedPageCallback,
+        SelectedPageLeftAdapter.OnLeftItemClickListener,
+        SelectedPageContentAdapter.OnSelectedPageContentItemClickListener {
 
     @BindView(R.id.left_category_list)
     public RecyclerView leftCategoryList;
@@ -117,10 +118,9 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
         mLeftAdapter.setData(categories);
         //分类内容
         // LogUtils.d(this,"onCategoriesLoaded -- > " + categories);
-        //TODO:更新UI
         //根据当前选中的分类，获取分类详情内容
-        //        List<SelectedPageCategory.DataBean> data = categories.getData();
-        //        mSelectedPagePresenter.getContentByCategory(data.get(0));
+        //List<SelectedPageCategory.DataBean> data = categories.getData();
+        //mSelectedPagePresenter.getContentByCategory(data.get(0));
     }
 
     @Override
@@ -152,19 +152,7 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     }
 
     @Override
-    public void onContentItemClick(SelectedContent.DataBean.TbkUatmFavoritesItemGetResponseBean.ResultsBean.UatmTbkItemBean item) {
-        // 内容点击了
-        //处理数据
-        String title = item.getTitle();
-        //详情的地址
-        String url = item.getCoupon_click_url();
-        if(TextUtils.isEmpty(url)) {
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        //拿到tiketPresenter去加载数据
-        ITicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
-        ticketPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(),TicketActivity.class));
+    public void onContentItemClick(IBaseInfo item) {
+        TicketUtil.toTicketPage(getContext(),item);
     }
 }

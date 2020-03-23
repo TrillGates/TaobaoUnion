@@ -59,7 +59,7 @@ public class HomePagerContent {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements IBaseInfo {
         @Override
         public String toString() {
             return "DataBean{" +
@@ -301,8 +301,18 @@ public class HomePagerContent {
             this.small_images = small_images;
         }
 
+        @Override
+        public String getCover() {
+            return pict_url;
+        }
+
         public String getTitle() {
             return title;
+        }
+
+        @Override
+        public String getUrl() {
+            return coupon_click_url;
         }
 
         public void setTitle(String title) {

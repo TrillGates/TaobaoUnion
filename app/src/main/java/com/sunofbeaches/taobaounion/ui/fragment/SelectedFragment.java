@@ -3,7 +3,10 @@ package com.sunofbeaches.taobaounion.ui.fragment;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
@@ -32,6 +35,15 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
 
     @BindView(R.id.right_content_list)
     public RecyclerView rightContentList;
+
+
+    @BindView(R.id.fragment_bar_title_tv)
+    public TextView barTitleTv;
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater,ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_with_bar_layout,container,false);
+    }
 
 
     private ISelectedPagePresenter mSelectedPagePresenter;
@@ -89,6 +101,7 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
                 outRect.bottom = topAndBottom;
             }
         });
+        barTitleTv.setText(getResources().getText(R.string.text_selected_title));
     }
 
     @Override

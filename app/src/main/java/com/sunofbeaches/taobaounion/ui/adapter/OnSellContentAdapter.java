@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 
 public class OnSellContentAdapter extends RecyclerView.Adapter<OnSellContentAdapter.InnerHolder> {
     private List<OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean> mData = new ArrayList<>();
+    private OnSellPageItemClickListener mContentItemClickListener = null;
 
     @NonNull
     @Override
@@ -32,9 +33,17 @@ public class OnSellContentAdapter extends RecyclerView.Adapter<OnSellContentAdap
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder,int position) {
-        //TODO:绑定数据
+        //绑定数据
         OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean mapDataBean = mData.get(position);
         holder.setData(mapDataBean);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mContentItemClickListener != null) {
+                    mContentItemClickListener.onSellItemClick(mapDataBean);
+                }
+            }
+        });
     }
 
     @Override
@@ -93,5 +102,13 @@ public class OnSellContentAdapter extends RecyclerView.Adapter<OnSellContentAdap
             float finalPrise = originPriseFloat - couponAmount;
             offPriseTv.setText("券后价：" + String.format("%.2f",finalPrise));
         }
+    }
+
+    public void setOnSellPageItemClickListener(OnSellPageItemClickListener listener) {
+        this.mContentItemClickListener = listener;
+    }
+
+    public interface OnSellPageItemClickListener {
+        void onSellItemClick(OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean data);
     }
 }

@@ -1,7 +1,12 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Rect;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -9,6 +14,8 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.OnSellContent;
 import com.sunofbeaches.taobaounion.presenter.IOnSellPagePresenter;
+import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
+import com.sunofbeaches.taobaounion.ui.activity.TicketActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.OnSellContentAdapter;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
@@ -20,7 +27,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class OnSellFragment extends BaseFragment implements IOnSellPageCallback {
+public class OnSellFragment extends BaseFragment implements IOnSellPageCallback, OnSellContentAdapter.OnSellPageItemClickListener {
 
 
     private IOnSellPagePresenter mOnSellPagePresenter;
@@ -30,6 +37,10 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback 
 
     @BindView(R.id.on_sell_content_list)
     public RecyclerView mContentRv;
+
+
+    @BindView(R.id.fragment_bar_title_tv)
+    public TextView barTitleTv;
 
 
     @BindView(R.id.on_sell_refresh_layout)
@@ -71,6 +82,12 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback 
                 }
             }
         });
+        mOnSellContentAdapter.setOnSellPageItemClickListener(this);
+    }
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater,ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_with_bar_layout,container,false);
     }
 
     @Override
@@ -89,10 +106,10 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback 
                 outRect.right = SizeUtils.dip2px(getContext(),2.5f);
             }
         });
-
         mTwinklingRefreshLayout.setEnableLoadmore(true);
         mTwinklingRefreshLayout.setEnableRefresh(false);
         mTwinklingRefreshLayout.setEnableOverScroll(true);
+        barTitleTv.setText(getResources().getText(R.string.text_on_sell_title));
     }
 
     @Override
@@ -137,5 +154,22 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback 
     @Override
     public void onEmpty() {
         setUpState(State.EMPTY);
+    }
+
+    @Override
+    public void onSellItemClick(OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean item) {
+        //特惠列表内容被点击
+        //处理数据
+        String title = item.getTitle();
+        //详情的地址
+        String url = item.getCoupon_click_url();
+        if(TextUtils.isEmpty(url)) {
+            url = item.getClick_url();
+        }
+        String cover = item.getPict_url();
+        //拿到tiketPresenter去加载数据
+        ITicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
+        ticketPresenter.getTicket(title,url,cover);
+        startActivity(new Intent(getContext(),TicketActivity.class));
     }
 }

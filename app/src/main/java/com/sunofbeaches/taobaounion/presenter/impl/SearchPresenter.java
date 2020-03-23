@@ -19,6 +19,7 @@ public class SearchPresenter implements ISearchPresenter {
 
     private final Api mApi;
     private ISearchPageCallback mSearchViewCallback = null;
+    private String mCurrentKeyword = null;
 
     public SearchPresenter() {
         RetrofitManager instance = RetrofitManager.getInstance();
@@ -45,6 +46,9 @@ public class SearchPresenter implements ISearchPresenter {
 
     @Override
     public void doSearch(String keyword) {
+        if(mCurrentKeyword == null || !mCurrentKeyword.equals(keyword)) {
+            this.mCurrentKeyword = keyword;
+        }
         //更新UI状态
         if(mSearchViewCallback != null) {
             mSearchViewCallback.onLoading();
@@ -98,12 +102,64 @@ public class SearchPresenter implements ISearchPresenter {
 
     @Override
     public void research() {
-
+        if(mCurrentKeyword == null) {
+            if(mSearchViewCallback != null) {
+                mSearchViewCallback.onEmpty();
+            }
+        } else {
+            this.doSearch(mCurrentKeyword);
+        }
     }
 
     @Override
     public void loaderMore() {
+        mCurrentPage++;
+        if(mCurrentKeyword == null) {
+            if(mSearchViewCallback != null) {
+                mSearchViewCallback.onMoreLoadedEmpty();
+            }
+        } else {
+            doSearchMore();
+        }
+    }
 
+    private void doSearchMore() {
+        Call<SearchResult> task = mApi.doSearch(mCurrentPage,mCurrentKeyword);
+        task.enqueue(new Callback<SearchResult>() {
+            @Override
+            public void onResponse(Call<SearchResult> call,Response<SearchResult> response) {
+                int code = response.code();
+                LogUtils.d(SearchPresenter.this,"do search result code -- > " + code);
+                if(code == HttpURLConnection.HTTP_OK) {
+                    handleMoreSearchResult(response.body());
+                } else {
+                    onLoaderMoreError();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchResult> call,Throwable t) {
+                t.printStackTrace();
+                onLoaderMoreError();
+            }
+        });
+    }
+
+    private void handleMoreSearchResult(SearchResult result) {
+        if(mSearchViewCallback != null) {
+            if(isResultEmpty(result)) {
+                //数据为空
+                mSearchViewCallback.onMoreLoadedEmpty();
+            } else {
+                mSearchViewCallback.onMoreLoaded(result);
+            }
+        }
+    }
+
+    private void onLoaderMoreError() {
+        if(mSearchViewCallback != null) {
+            mSearchViewCallback.onMoreLoadedError();
+        }
     }
 
     @Override

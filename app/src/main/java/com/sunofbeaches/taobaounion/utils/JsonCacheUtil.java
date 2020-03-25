@@ -18,7 +18,6 @@ public class JsonCacheUtil {
         mGson = new Gson();
     }
 
-
     public void saveCache(String key,Object value) {
         this.saveCache(key,value,-1L);
     }
@@ -42,7 +41,7 @@ public class JsonCacheUtil {
         mSharedPreferences.edit().remove(key).apply();
     }
 
-    public <T extends Class> T getValue(String key,Class<T> clazz) {
+    public <T> T getValue(String key,Class<T> clazz) {
         String valueWithDuration = mSharedPreferences.getString(key,null);
         if(valueWithDuration == null) {
             return null;
@@ -57,6 +56,7 @@ public class JsonCacheUtil {
         } else {
             //没过期
             String cache = cacheWithDuration.getCache();
+            LogUtils.d(this,"cache -- > " + cache);
             T result = mGson.fromJson(cache,clazz);
             return result;
         }
@@ -68,7 +68,7 @@ public class JsonCacheUtil {
         if(sJsonCacheUtil == null) {
             sJsonCacheUtil = new JsonCacheUtil();
         }
-        return null;
+        return sJsonCacheUtil;
     }
 
 }

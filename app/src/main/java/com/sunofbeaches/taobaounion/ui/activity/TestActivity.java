@@ -6,8 +6,12 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.sunofbeaches.taobaounion.R;
+import com.sunofbeaches.taobaounion.ui.custom.TextFlowLayout;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -18,12 +22,22 @@ public class TestActivity extends Activity {
     @BindView(R.id.test_navigation_bar)
     public RadioGroup navigationBar;
 
+    @BindView(R.id.test_flow_text)
+    public TextFlowLayout flowText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
         initListener();
+        List<String> testList = new ArrayList<>();
+        testList.add("电脑");
+        testList.add("机械键盘");
+        testList.add("滑板鞋");
+        testList.add("运动鞋");
+        testList.add("肥宅快乐水");
+        flowText.setTextList(testList);
     }
 
     public void showToast(View view) {

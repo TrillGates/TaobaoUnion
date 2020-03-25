@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/shap_flow_text_bg"
+    android:background="@drawable/selector_flow_text_bg"
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingTop="4dp"

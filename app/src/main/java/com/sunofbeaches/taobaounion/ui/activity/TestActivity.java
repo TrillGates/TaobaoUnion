@@ -33,11 +33,40 @@ public class TestActivity extends Activity {
         initListener();
         List<String> testList = new ArrayList<>();
         testList.add("电脑");
+        testList.add("电脑显示器");
+        testList.add("Nuxt.js");
+        testList.add("Vue.js课程");
         testList.add("机械键盘");
         testList.add("滑板鞋");
         testList.add("运动鞋");
         testList.add("肥宅快乐水");
+        testList.add("阳光沙滩");
+        testList.add("android编程");
+        testList.add("机械键盘");
+        testList.add("滑板鞋");
+        testList.add("运动鞋");
+        testList.add("肥宅快乐水");
+        testList.add("阳光沙滩");
+        testList.add("android编程");
+        testList.add("机械键盘");
+        testList.add("滑板鞋");
+        testList.add("肥宅快乐水");
+        testList.add("阳光沙滩");
+        testList.add("android编程");
+        testList.add("机械键盘");
+        testList.add("滑板鞋");
+        testList.add("运动鞋");
+        testList.add("肥宅快乐水");
+        testList.add("阳光沙滩");
+        testList.add("android编程");
+        testList.add("JavaWeb后台");
         flowText.setTextList(testList);
+        flowText.setOnFlowTextItemClickListener(new TextFlowLayout.OnFlowTextItemClickListener() {
+            @Override
+            public void onFlowItemClick(String text) {
+                LogUtils.d(TestActivity.this," click text -== > " + text);
+            }
+        });
     }
 
     public void showToast(View view) {

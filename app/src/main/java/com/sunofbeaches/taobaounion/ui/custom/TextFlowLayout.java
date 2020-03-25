@@ -20,6 +20,8 @@ public class TextFlowLayout extends ViewGroup {
     private float mItemHorizontalSpace = DEFAULT_SPACE;
     private float mItemVerticalSpace = DEFAULT_SPACE;
     private int mSelfWidth;
+    private int mItemHeight;
+    private OnFlowTextItemClickListener mItemClickListener = null;
 
 
     public float getItemHorizontalSpace() {
@@ -68,18 +70,27 @@ public class TextFlowLayout extends ViewGroup {
             // 等价于
             TextView item = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.flow_text_view,this,false);
             item.setText(text);
+            item.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mItemClickListener != null) {
+                        mItemClickListener.onFlowItemClick(text);
+                    }
+                }
+            });
             addView(item);
         }
     }
 
-    //这个是描述单行
-    private List<View> line = null;
     //这个是描述所有的行
     private List<List<View>> lines = new ArrayList<>();
 
     @Override
     protected void onMeasure(int widthMeasureSpec,int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        //这个是描述单行
+        List<View> line = null;
+        lines.clear();
         mSelfWidth = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft() - getPaddingRight();
         LogUtils.d(this,"mSelfWidth == > " + mSelfWidth);
         //测量
@@ -88,6 +99,10 @@ public class TextFlowLayout extends ViewGroup {
         int childCount = getChildCount();
         for(int i = 0; i < childCount; i++) {
             View itemView = getChildAt(i);
+            if(itemView.getVisibility() != VISIBLE) {
+                //不需要进行测量
+                continue;
+            }
             //测量前
             LogUtils.d(this,"before height -- > " + itemView.getMeasuredHeight());
             measureChild(itemView,widthMeasureSpec,heightMeasureSpec);
@@ -95,7 +110,7 @@ public class TextFlowLayout extends ViewGroup {
             LogUtils.d(this,"after height -- > " + itemView.getMeasuredHeight());
             if(line == null) {
                 //说明当前行为空，可以添加进来
-                createNewLine(itemView);
+                line = createNewLine(itemView);
             } else {
                 //判断是否可以再继续添加
                 if(canBeAdd(itemView,line)) {
@@ -103,19 +118,21 @@ public class TextFlowLayout extends ViewGroup {
                     line.add(itemView);
                 } else {
                     //新创建一行
-                    createNewLine(itemView);
+                    line = createNewLine(itemView);
                 }
             }
         }
-        int selfHeight = (int) (lines.size() * getChildAt(0).getMeasuredHeight() + mItemVerticalSpace * (lines.size() + 1) + 0.5f);
+        mItemHeight = getChildAt(0).getMeasuredHeight();
+        int selfHeight = (int) (lines.size() * mItemHeight + mItemVerticalSpace * (lines.size() + 1) + 0.5f);
         //测量自己
         setMeasuredDimension(mSelfWidth,selfHeight);
     }
 
-    private void createNewLine(View itemView) {
-        line = new ArrayList<>();
+    private List<View> createNewLine(View itemView) {
+        List<View> line = new ArrayList<>();
         line.add(itemView);
         lines.add(line);
+        return line;
     }
 
     /**
@@ -145,5 +162,26 @@ public class TextFlowLayout extends ViewGroup {
     protected void onLayout(boolean changed,int l,int t,int r,int b) {
         //摆放孩子
         LogUtils.d(this,"onLayout -- > " + getChildCount());
+        int topOffset = (int) mItemHorizontalSpace;
+        for(List<View> views : lines) {
+            //views是每一行
+            int leftOffset = (int) mItemHorizontalSpace;
+            for(View view : views) {
+                //每一行里的每个item
+                view.layout(leftOffset,topOffset,leftOffset + view.getMeasuredWidth(),topOffset + view.getMeasuredHeight());
+                //
+                leftOffset += view.getMeasuredWidth() + mItemHorizontalSpace;
+            }
+            topOffset += mItemHeight + mItemHorizontalSpace;
+        }
+    }
+
+    public void setOnFlowTextItemClickListener(OnFlowTextItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+
+    public interface OnFlowTextItemClickListener {
+        void onFlowItemClick(String text);
     }
 }

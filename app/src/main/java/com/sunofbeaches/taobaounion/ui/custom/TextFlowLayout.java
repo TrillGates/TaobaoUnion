@@ -88,6 +88,9 @@ public class TextFlowLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec,int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        if(getChildCount() == 0) {
+            return;
+        }
         //这个是描述单行
         List<View> line = null;
         lines.clear();
@@ -104,10 +107,10 @@ public class TextFlowLayout extends ViewGroup {
                 continue;
             }
             //测量前
-            LogUtils.d(this,"before height -- > " + itemView.getMeasuredHeight());
+            //LogUtils.d(this,"before height -- > " + itemView.getMeasuredHeight());
             measureChild(itemView,widthMeasureSpec,heightMeasureSpec);
             //测量后
-            LogUtils.d(this,"after height -- > " + itemView.getMeasuredHeight());
+            // LogUtils.d(this,"after height -- > " + itemView.getMeasuredHeight());
             if(line == null) {
                 //说明当前行为空，可以添加进来
                 line = createNewLine(itemView);
@@ -151,8 +154,8 @@ public class TextFlowLayout extends ViewGroup {
         }
         //水平间距的宽度
         totalWith += mItemHorizontalSpace * (line.size() + 1);
-        LogUtils.d(this,"totalWith -- > " + totalWith);
-        LogUtils.d(this,"mSelfWidth -- > " + mSelfWidth);
+        //LogUtils.d(this,"totalWith -- > " + totalWith);
+        //LogUtils.d(this,"mSelfWidth -- > " + mSelfWidth);
         //如果小于/等于当前控件的宽度，则可以添加，否则不能添加
         return totalWith <= mSelfWidth;
     }

@@ -59,7 +59,7 @@ public class HomePagerContent {
         this.data = data;
     }
 
-    public static class DataBean implements IBaseInfo {
+    public static class DataBean implements IGetTicketBaseInfo {
         @Override
         public String toString() {
             return "DataBean{" +

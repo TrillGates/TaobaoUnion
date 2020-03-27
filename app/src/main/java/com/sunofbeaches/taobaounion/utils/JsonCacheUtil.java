@@ -37,7 +37,7 @@ public class JsonCacheUtil {
     }
 
 
-    public void delCahce(String key) {
+    public void delCache(String key) {
         mSharedPreferences.edit().remove(key).apply();
     }
 

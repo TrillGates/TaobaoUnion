@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
-import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.model.domain.IGetTicketBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.SelectedContent;
 import com.sunofbeaches.taobaounion.model.domain.SelectedPageCategory;
 import com.sunofbeaches.taobaounion.presenter.ISelectedPagePresenter;
@@ -152,7 +152,7 @@ public class SelectedFragment extends BaseFragment
     }
 
     @Override
-    public void onContentItemClick(IBaseInfo item) {
+    public void onContentItemClick(IGetTicketBaseInfo item) {
         TicketUtil.toTicketPage(getContext(),item);
     }
 }

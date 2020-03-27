@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
-import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.model.domain.IGetTicketBaseInfo;
 import com.sunofbeaches.taobaounion.utils.UrlUtils;
 
 import java.util.ArrayList;
@@ -88,6 +88,6 @@ public class LooperPagerAdapter extends PagerAdapter {
     }
 
     public interface OnLooperPageItemClickListener {
-        void onLooperItemClick(IBaseInfo item);
+        void onLooperItemClick(IGetTicketBaseInfo item);
     }
 }

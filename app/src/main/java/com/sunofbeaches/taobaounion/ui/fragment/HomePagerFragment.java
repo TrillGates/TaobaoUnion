@@ -14,7 +14,7 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.model.domain.HomePagerContent;
-import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.model.domain.IGetTicketBaseInfo;
 import com.sunofbeaches.taobaounion.presenter.ICategoryPagerPresenter;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.sunofbeaches.taobaounion.ui.adapter.LooperPagerAdapter;
@@ -316,18 +316,18 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     }
 
     @Override
-    public void onItemClick(IBaseInfo item) {
+    public void onItemClick(IGetTicketBaseInfo item) {
         //列表内容被点击了
         LogUtils.d(this,"list item click --- > " + item.getTitle());
         handleItemClick(item);
     }
 
-    private void handleItemClick(IBaseInfo item) {
+    private void handleItemClick(IGetTicketBaseInfo item) {
         TicketUtil.toTicketPage(getContext(),item);
     }
 
     @Override
-    public void onLooperItemClick(IBaseInfo item) {
+    public void onLooperItemClick(IGetTicketBaseInfo item) {
         //轮播图内容被点击了
         LogUtils.d(this,"looper item click --- > " + item.getTitle());
         handleItemClick(item);

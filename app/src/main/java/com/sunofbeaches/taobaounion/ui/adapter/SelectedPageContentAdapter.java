@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sunofbeaches.taobaounion.R;
-import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.model.domain.IGetTicketBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.SelectedContent;
 import com.sunofbeaches.taobaounion.utils.Constants;
 
@@ -115,6 +115,6 @@ public class SelectedPageContentAdapter extends RecyclerView.Adapter<SelectedPag
     }
 
     public interface OnSelectedPageContentItemClickListener {
-        void onContentItemClick(IBaseInfo item);
+        void onContentItemClick(IGetTicketBaseInfo item);
     }
 }

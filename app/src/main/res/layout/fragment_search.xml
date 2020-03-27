@@ -1,12 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sob="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!--历史记录-->
+    <LinearLayout
+        android:id="@+id/search_history_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_search_history"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/search_history_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/delete_icon" />
+        </RelativeLayout>
+
+        <com.sunofbeaches.taobaounion.ui.custom.TextFlowLayout
+            android:id="@+id/search_history_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            sob:horizontalSpace="10dp"
+            sob:verticalSpace="10dp" />
+
+
+    </LinearLayout>
 
     <!--推荐关键字-->
+    <LinearLayout
+        android:id="@+id/search_recommend_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热门搜索"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <com.sunofbeaches.taobaounion.ui.custom.TextFlowLayout
+            android:id="@+id/search_recommend_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            sob:horizontalSpace="10dp"
+            sob:verticalSpace="10dp" />
+
+
+    </LinearLayout>
+
 
     <!--搜索结果-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

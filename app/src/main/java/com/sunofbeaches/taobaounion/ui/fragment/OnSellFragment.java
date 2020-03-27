@@ -10,7 +10,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
-import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.model.domain.IGetTicketBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.OnSellContent;
 import com.sunofbeaches.taobaounion.presenter.IOnSellPagePresenter;
 import com.sunofbeaches.taobaounion.ui.adapter.OnSellContentAdapter;
@@ -155,7 +155,7 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback,
     }
 
     @Override
-    public void onSellItemClick(IBaseInfo item) {
+    public void onSellItemClick(IGetTicketBaseInfo item) {
         TicketUtil.toTicketPage(getContext(),item);
     }
 }

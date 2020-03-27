@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.model.domain.IGetTicketBaseInfo;
 import com.sunofbeaches.taobaounion.presenter.ITicketPresenter;
 import com.sunofbeaches.taobaounion.ui.activity.TicketActivity;
 
 public class TicketUtil {
 
-    public static void toTicketPage(Context context,IBaseInfo baseInfo) {
+    public static void toTicketPage(Context context,IGetTicketBaseInfo baseInfo) {
         //特惠列表内容被点击
         //处理数据
         String title = baseInfo.getTitle();

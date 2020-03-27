@@ -1,6 +1,6 @@
 package com.sunofbeaches.taobaounion.model.domain;
 
-public interface IBaseInfo {
+public interface IGetTicketBaseInfo {
     /**
      * 商品的封面
      *

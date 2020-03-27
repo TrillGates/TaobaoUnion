@@ -1,7 +1,9 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
 import android.graphics.Rect;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.sunofbeaches.taobaounion.model.domain.SearchResult;
 import com.sunofbeaches.taobaounion.presenter.ISearchPresenter;
 import com.sunofbeaches.taobaounion.ui.adapter.LinearItemContentAdapter;
 import com.sunofbeaches.taobaounion.ui.custom.TextFlowLayout;
+import com.sunofbeaches.taobaounion.utils.KeyboardUtil;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
@@ -84,7 +87,7 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
         mSearchPresenter.registerViewCallback(this);
         //获取搜索推荐词
         mSearchPresenter.getRecommendWords();
-        mSearchPresenter.doSearch("毛衣");
+        //mSearchPresenter.doSearch("毛衣");
         mSearchPresenter.getHistories();
     }
 
@@ -116,6 +119,55 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
 
     @Override
     protected void initListener() {
+        //发起搜索
+        mSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //如果有内容搜索
+                //如果输入框没有内容则取消
+                if(hasInput(false)) {
+                    //发起否所
+                    if(mSearchPresenter != null) {
+                        mSearchPresenter.doSearch(mSearchInputBox.getText().toString().trim());
+                        KeyboardUtil.hide(getContext(),v);
+                    }
+                } else {
+                    //TODO:
+                }
+            }
+        });
+        //清除输入框里的内容
+        mCleanInputBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSearchInputBox.setText("");
+                //回到历史记录界面
+                switch2HistoryPage();
+            }
+        });
+
+        //监听输入框的内容变化
+        mSearchInputBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s,int start,int count,int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s,int start,int before,int count) {
+                //变化时候的通知
+                //LogUtils.d(SearchFragment.this,"input text === > " + s.toString().trim());
+                //如果长度不为0，那么显示删除按钮
+                //否则隐藏删除按钮
+                mCleanInputBtn.setVisibility(hasInput(true) ? View.VISIBLE : View.GONE);
+                mSearchBtn.setText(hasInput(false) ? "搜索" : "取消");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //
+            }
+        });
         mSearchInputBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v,int actionId,KeyEvent event) {
@@ -159,6 +211,32 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
             }
         });
 
+    }
+
+    /**
+     * 切换到历史和推荐界面
+     */
+    private void switch2HistoryPage() {
+        if(mHistoriesView.getContentSize() != 0) {
+            mHistoriesContainer.setVisibility(View.VISIBLE);
+        } else {
+            mHistoriesContainer.setVisibility(View.GONE);
+        }
+        if(mRecommendView.getContentSize() != 0) {
+            mRecommendContainer.setVisibility(View.VISIBLE);
+        } else {
+            mRecommendContainer.setVisibility(View.GONE);
+        }
+        //内容要隐藏
+        mRefreshContainer.setVisibility(View.GONE);
+    }
+
+    private boolean hasInput(boolean containSpace) {
+        if(containSpace) {
+            return mSearchInputBox.getText().toString().length() > 0;
+        } else {
+            return mSearchInputBox.getText().toString().trim().length() > 0;
+        }
     }
 
     @Override

@@ -16,6 +16,7 @@ import java.util.List;
 
 public class TextFlowLayout extends ViewGroup {
 
+
     public static final float DEFAULT_SPACE = 10;
     private float mItemHorizontalSpace = DEFAULT_SPACE;
     private float mItemVerticalSpace = DEFAULT_SPACE;
@@ -23,6 +24,9 @@ public class TextFlowLayout extends ViewGroup {
     private int mItemHeight;
     private OnFlowTextItemClickListener mItemClickListener = null;
 
+    public int getContentSize() {
+        return mTextList.size();
+    }
 
     public float getItemHorizontalSpace() {
         return mItemHorizontalSpace;

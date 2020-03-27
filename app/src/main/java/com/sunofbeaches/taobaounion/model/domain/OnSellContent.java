@@ -110,7 +110,7 @@ public class OnSellContent {
                     this.map_data = map_data;
                 }
 
-                public static class MapDataBean implements IGetTicketBaseInfo {
+                public static class MapDataBean implements IBaseInfo {
                     /**
                      * category_id : 162103
                      * category_name : 毛衣

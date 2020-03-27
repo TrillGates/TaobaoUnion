@@ -59,7 +59,7 @@ public class HomePagerContent {
         this.data = data;
     }
 
-    public static class DataBean implements IGetTicketBaseInfo {
+    public static class DataBean implements ILinearItemInfo {
         @Override
         public String toString() {
             return "DataBean{" +
@@ -325,6 +325,16 @@ public class HomePagerContent {
 
         public void setUser_type(int user_type) {
             this.user_type = user_type;
+        }
+
+        @Override
+        public String getFinalPrise() {
+            return zk_final_price;
+        }
+
+        @Override
+        public long getCouponAmount() {
+            return coupon_amount;
         }
 
         public long getVolume() {

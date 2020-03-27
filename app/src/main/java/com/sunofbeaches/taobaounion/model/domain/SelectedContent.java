@@ -135,7 +135,7 @@ public class SelectedContent {
                     this.uatm_tbk_item = uatm_tbk_item;
                 }
 
-                public static class UatmTbkItemBean implements IGetTicketBaseInfo {
+                public static class UatmTbkItemBean implements IBaseInfo {
                     /**
                      * click_url : https://s.click.taobao.com/t?e=m%3D2%26s%3DQqgvXVwF4QAcQipKwQzePOeEDrYVVa64yK8Cckff7TXjf2vlNIV67lbA7kVj6DOjxeoNewupcd6YzwUb1bbXppZwHxYkBYTUeP8T%2BYUOOiuIOBqu0asPv%2F0jCkSDmD6DKe3%2FbelnU7chre9gvq5P3zKYVV1BId1rfp5HoTJX0vWplyh2W4e4BPxr1c6V5LsG1hjz2dNwkcRt%2ByMzJ8mpM%2Fe7B5ZkP8EjSdChf3U3iXY%2B5QowgvHJPA%3D%3D&unid=19902751&union_lens=lensId:0b012096_0c74_16ec657c76b_e230
                      * coupon_click_url : https://uland.taobao.com/coupon/edetail?e=TBIJTibAhO4GQASttHIRqQA9fN4MifAG7tS89T6GqASOeUcSvy%2FHYmF5qFnaO9996DeX2ucVKhvHjZlrd41oqDEL25HyNw0xJ4FRquMv%2FTtFRuNP9Tp9RQH%2FlwNDrBX3XYsE5g93lTYZao0HO%2FvX0w%3D%3D&union_lens=lensId:0b012096_0c74_16ec657c76b_e230

@@ -22,16 +22,31 @@
             android:textColor="@color/white" />
 
         <EditText
+            android:id="@+id/search_input_box"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_toLeftOf="@id/search_btn"
             android:background="@drawable/shape_edit_box_bg"
+            android:focusable="true"
             android:hint="@string/text_search_tips"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:singleLine="true"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/search_clean_btn"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/search_btn"
+            android:src="@mipmap/remove"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

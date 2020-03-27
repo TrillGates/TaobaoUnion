@@ -1,15 +1,22 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
 import android.graphics.Rect;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Histories;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
 import com.sunofbeaches.taobaounion.model.domain.SearchRecommend;
 import com.sunofbeaches.taobaounion.model.domain.SearchResult;
 import com.sunofbeaches.taobaounion.presenter.ISearchPresenter;
@@ -18,6 +25,7 @@ import com.sunofbeaches.taobaounion.ui.custom.TextFlowLayout;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.utils.SizeUtils;
+import com.sunofbeaches.taobaounion.utils.TicketUtil;
 import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.sunofbeaches.taobaounion.view.ISearchPageCallback;
 
@@ -53,6 +61,15 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
     @BindView(R.id.search_result_list)
     public RecyclerView mSearchList;
 
+    @BindView(R.id.search_btn)
+    public TextView mSearchBtn;
+
+    @BindView(R.id.search_clean_btn)
+    public ImageView mCleanInputBtn;
+
+    @BindView(R.id.search_input_box)
+    public EditText mSearchInputBox;
+
 
     @BindView(R.id.search_result_container)
     public TwinklingRefreshLayout mRefreshContainer;
@@ -73,6 +90,14 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
 
 
     @Override
+    protected void onRetryClick() {
+        //重新加载内容
+        if(mSearchPresenter != null) {
+            mSearchPresenter.research();
+        }
+    }
+
+    @Override
     protected void release() {
         if(mSearchPresenter != null) {
             mSearchPresenter.unregisterViewCallback(this);
@@ -91,6 +116,23 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
 
     @Override
     protected void initListener() {
+        mSearchInputBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v,int actionId,KeyEvent event) {
+                //LogUtils.d(SearchFragment.this,"actionId === > " + actionId);
+                if(actionId == EditorInfo.IME_ACTION_SEARCH && mSearchPresenter != null) {
+                    String keyword = v.getText().toString().trim();
+                    if(TextUtils.isEmpty(keyword)) {
+                        return false;
+                    }
+                    //判断拿到的内容是否为空
+                    LogUtils.d(SearchFragment.this," input text === > " + keyword);
+                    //发起搜索
+                    mSearchPresenter.doSearch(keyword);
+                }
+                return false;
+            }
+        });
         mHistoryDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +148,14 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
                 if(mSearchPresenter != null) {
                     mSearchPresenter.loaderMore();
                 }
+            }
+        });
+
+        mSearchResultAdapter.setOnListItemClickListener(new LinearItemContentAdapter.OnListItemClickListener() {
+            @Override
+            public void onItemClick(IBaseInfo item) {
+                //搜索列表内容被点击了
+                TicketUtil.toTicketPage(getContext(),item);
             }
         });
 
@@ -154,10 +204,16 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
         //显示搜索界面
         mRefreshContainer.setVisibility(View.VISIBLE);
         //设置数据
-        mSearchResultAdapter.setData(result.getData()
-                .getTbk_dg_material_optional_response()
-                .getResult_list()
-                .getMap_data());
+        try {
+            mSearchResultAdapter.setData(result.getData()
+                    .getTbk_dg_material_optional_response()
+                    .getResult_list()
+                    .getMap_data());
+        } catch(Exception e) {
+            e.printStackTrace();
+            //切换到搜搜内容为空
+            setUpState(State.EMPTY);
+        }
         mSearchList.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect,@NonNull View view,@NonNull RecyclerView parent,@NonNull RecyclerView.State state) {

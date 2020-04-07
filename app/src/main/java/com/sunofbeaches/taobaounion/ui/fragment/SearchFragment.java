@@ -41,7 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
 
-public class SearchFragment extends BaseFragment implements ISearchPageCallback {
+public class SearchFragment extends BaseFragment implements ISearchPageCallback, TextFlowLayout.OnFlowTextItemClickListener {
 
 
     @BindView(R.id.search_history_view)
@@ -119,6 +119,8 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
 
     @Override
     protected void initListener() {
+        mHistoriesView.setOnFlowTextItemClickListener(this);
+        mRecommendView.setOnFlowTextItemClickListener(this);
         //发起搜索
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,11 +130,13 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
                 if(hasInput(false)) {
                     //发起否所
                     if(mSearchPresenter != null) {
-                        mSearchPresenter.doSearch(mSearchInputBox.getText().toString().trim());
+                        //mSearchPresenter.doSearch(mSearchInputBox.getText().toString().trim());
+                        toSearch(mSearchInputBox.getText().toString().trim());
                         KeyboardUtil.hide(getContext(),v);
                     }
                 } else {
-                    //TODO:
+                    //隐藏键盘
+                    KeyboardUtil.hide(getContext(),v);
                 }
             }
         });
@@ -180,7 +184,8 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
                     //判断拿到的内容是否为空
                     LogUtils.d(SearchFragment.this," input text === > " + keyword);
                     //发起搜索
-                    mSearchPresenter.doSearch(keyword);
+                    toSearch(keyword);
+                    //mSearchPresenter.doSearch(keyword);
                 }
                 return false;
             }
@@ -217,10 +222,8 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
      * 切换到历史和推荐界面
      */
     private void switch2HistoryPage() {
-        if(mHistoriesView.getContentSize() != 0) {
-            mHistoriesContainer.setVisibility(View.VISIBLE);
-        } else {
-            mHistoriesContainer.setVisibility(View.GONE);
+        if(mSearchPresenter != null) {
+            mSearchPresenter.getHistories();
         }
         if(mRecommendView.getContentSize() != 0) {
             mRecommendContainer.setVisibility(View.VISIBLE);
@@ -250,6 +253,14 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
         mRefreshContainer.setEnableLoadmore(true);
         mRefreshContainer.setEnableRefresh(false);
         mRefreshContainer.setEnableOverScroll(true);
+        mSearchList.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect,@NonNull View view,@NonNull RecyclerView parent,@NonNull RecyclerView.State state) {
+                outRect.top = SizeUtils.dip2px(getContext(),1.5f);
+                outRect.bottom = SizeUtils.dip2px(getContext(),1.5f);
+                ;
+            }
+        });
     }
 
     @Override
@@ -292,14 +303,6 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
             //切换到搜搜内容为空
             setUpState(State.EMPTY);
         }
-        mSearchList.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect,@NonNull View view,@NonNull RecyclerView parent,@NonNull RecyclerView.State state) {
-                outRect.top = SizeUtils.dip2px(getContext(),1.5f);
-                outRect.bottom = SizeUtils.dip2px(getContext(),1.5f);
-                ;
-            }
-        });
     }
 
     @Override
@@ -354,5 +357,23 @@ public class SearchFragment extends BaseFragment implements ISearchPageCallback 
     @Override
     public void onEmpty() {
         setUpState(State.EMPTY);
+    }
+
+    @Override
+    public void onFlowItemClick(String text) {
+        //发起搜索
+        toSearch(text);
+    }
+
+    private void toSearch(String text) {
+        if(mSearchPresenter != null) {
+            mSearchList.scrollToPosition(0);
+            mSearchInputBox.setText(text);
+            mSearchInputBox.setFocusable(true);
+            mSearchInputBox.requestFocus();
+            //mSearchInputBox.setSelection(text.length());
+            mSearchInputBox.setSelection(text.length(),text.length());
+            mSearchPresenter.doSearch(text);
+        }
     }
 }

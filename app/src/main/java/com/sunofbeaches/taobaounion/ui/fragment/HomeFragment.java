@@ -10,6 +10,7 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.presenter.IHomePresenter;
+import com.sunofbeaches.taobaounion.ui.activity.IMainActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePagerAdapter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
@@ -17,6 +18,7 @@ import com.sunofbeaches.taobaounion.view.IHomeCallback;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
@@ -30,6 +32,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @BindView(R.id.home_pager)
     public ViewPager homePager;
+
+    @BindView(R.id.home_search_input_box)
+    public View mSearchInputBox;
     private HomePagerAdapter mHomePagerAdapter;
 
     @Override
@@ -65,6 +70,16 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         //创建Presenter
         mHomePresenter = PresenterManager.getInstance().getHomePresenter();
         mHomePresenter.registerViewCallback(this);
+        mSearchInputBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到搜索页面
+                FragmentActivity activity = getActivity();
+                if(activity instanceof IMainActivity) {
+                    ((IMainActivity) activity).switch2Search();
+                }
+            }
+        });
     }
 
     @Override

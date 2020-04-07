@@ -12,6 +12,7 @@ import com.sunofbeaches.taobaounion.R;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TextFlowLayout extends ViewGroup {
@@ -66,7 +67,10 @@ public class TextFlowLayout extends ViewGroup {
     }
 
     public void setTextList(List<String> textList) {
-        this.mTextList = textList;
+        removeAllViews();
+        this.mTextList.clear();
+        this.mTextList.addAll(textList);
+        Collections.reverse(mTextList);
         //遍历内容
         for(String text : mTextList) {
             //添加子view

@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements IMainActivity {
 
     @BindView(R.id.main_navigation_bar)
     public BottomNavigationView mNavigationView;
@@ -28,6 +28,16 @@ public class MainActivity extends BaseActivity {
     protected void initPresenter() {
 
     }
+
+    /**
+     * 跳转到搜索界面
+     */
+    public void switch2Search() {
+        // switchFragment(mSearchFragment);
+        //切换导航栏的选中项
+        mNavigationView.setSelectedItemId(R.id.search);
+    }
+
 
     @Override
     protected void initEvent() {
@@ -79,6 +89,10 @@ public class MainActivity extends BaseActivity {
     private BaseFragment lastOneFragment = null;
 
     private void switchFragment(BaseFragment targetFragment) {
+        //如果上一个fragment跟当前要切换的fragment是同一个，那么不需要切换
+        if(lastOneFragment == targetFragment) {
+            return;
+        }
         //修改成add和hide的方式来控制Fragment的切换
         FragmentTransaction fragmentTransaction = mFm.beginTransaction();
         if(!targetFragment.isAdded()) {

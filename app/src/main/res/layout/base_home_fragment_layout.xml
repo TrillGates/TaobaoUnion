@@ -31,6 +31,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:id="@+id/home_search_input_box"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/scan_icon"

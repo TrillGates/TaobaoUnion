@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/capture_containter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/capture_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_scaner"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/scan_mask">
+
+        <ImageView
+            android:id="@+id/top_mask"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:alpha="0.5"
+            android:layout_marginRight="40dp"
+            android:onClick="btn"
+            android:src="@drawable/s_light" />
+
+        <ImageView
+            android:id="@+id/top_openpicture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp"
+            android:alpha="0.5"
+            android:onClick="btn"
+            android:src="@drawable/s_img"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/top_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:alpha="0.5"
+            android:onClick="btn"
+            android:src="@drawable/s_left_jiantou" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_scaner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/left_mask"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+
+        <RelativeLayout
+            android:id="@+id/capture_crop_layout"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:background="@drawable/capture"
+            android:contentDescription="@string/app_name">
+
+            <ImageView
+                android:id="@+id/capture_scan_line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/rxtool_scan_ray"
+                android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/right_mask"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_scaner"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/bottom_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/scan_mask"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_40"
+            android:text="扫描【阳光沙滩二维码】领券"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_scan_help"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:gravity="bottom"
+            android:text="RxTool"
+            android:textColor="#84FFFFFF"
+            android:textSize="@dimen/text_12" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_scan_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:onClick="btn"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/code_icon"
+                android:gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/code_icon"
+                android:text="二维码"
+                android:textColor="#DBD5D5" />
+
+            <TextView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/linecode_icon"
+                android:gravity="center"
+                android:src="@drawable/linecode_icon"
+                android:text="条形码"
+                android:textColor="#DBD5D5" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

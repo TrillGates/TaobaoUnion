@@ -12,11 +12,11 @@ import com.sunofbeaches.taobaounion.base.BaseFragment;
 import com.sunofbeaches.taobaounion.model.domain.Categories;
 import com.sunofbeaches.taobaounion.presenter.IHomePresenter;
 import com.sunofbeaches.taobaounion.ui.activity.IMainActivity;
+import com.sunofbeaches.taobaounion.ui.activity.ScanQrCodeActivity;
 import com.sunofbeaches.taobaounion.ui.adapter.HomePagerAdapter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.view.IHomeCallback;
-import com.vondear.rxfeature.activity.ActivityScanerCode;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +77,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
             @Override
             public void onClick(View v) {
                 //跳转到扫码界面
-                startActivity(new Intent(getContext(),ActivityScanerCode.class));
+                startActivity(new Intent(getContext(),ScanQrCodeActivity.class));
             }
         });
     }

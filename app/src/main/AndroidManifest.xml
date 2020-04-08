@@ -25,6 +25,9 @@
             android:launchMode="singleTop">
 
         </activity>
+        <activity android:name="com.vondear.rxfeature.activity.ActivityScanerCode">
+
+        </activity>
     </application>
 
 </manifest>

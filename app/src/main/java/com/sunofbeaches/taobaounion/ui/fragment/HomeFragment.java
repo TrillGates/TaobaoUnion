@@ -1,5 +1,6 @@
 package com.sunofbeaches.taobaounion.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.sunofbeaches.taobaounion.ui.adapter.HomePagerAdapter;
 import com.sunofbeaches.taobaounion.utils.LogUtils;
 import com.sunofbeaches.taobaounion.utils.PresenterManager;
 import com.sunofbeaches.taobaounion.view.IHomeCallback;
+import com.vondear.rxfeature.activity.ActivityScanerCode;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +34,10 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @BindView(R.id.home_pager)
     public ViewPager homePager;
+
+    @BindView(R.id.scan_icon)
+    public View scanBtn;
+
 
     @BindView(R.id.home_search_input_box)
     public View mSearchInputBox;
@@ -63,6 +69,17 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         mHomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
         //设置适配器
         homePager.setAdapter(mHomePagerAdapter);
+    }
+
+    @Override
+    protected void initListener() {
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到扫码界面
+                startActivity(new Intent(getContext(),ActivityScanerCode.class));
+            }
+        });
     }
 
     @Override

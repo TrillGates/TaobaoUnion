@@ -26,8 +26,8 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:alpha="0.5"
             android:layout_marginRight="40dp"
+            android:alpha="0.5"
             android:onClick="btn"
             android:src="@drawable/s_light" />
 
@@ -135,7 +135,8 @@
             android:gravity="bottom"
             android:text="RxTool"
             android:textColor="#84FFFFFF"
-            android:textSize="@dimen/text_12" />
+            android:textSize="@dimen/text_12"
+            android:visibility="gone" />
 
 
         <LinearLayout

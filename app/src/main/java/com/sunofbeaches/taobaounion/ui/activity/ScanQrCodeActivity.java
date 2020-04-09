@@ -30,6 +30,9 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.sunofbeaches.taobaounion.R;
+import com.sunofbeaches.taobaounion.model.domain.IBaseInfo;
+import com.sunofbeaches.taobaounion.utils.TicketUtil;
+import com.sunofbeaches.taobaounion.utils.ToastUtil;
 import com.vondear.rxfeature.module.scaner.CameraManager;
 import com.vondear.rxfeature.module.scaner.OnRxScanerListener;
 import com.vondear.rxfeature.module.scaner.PlanarYUVLuminanceSource;
@@ -402,10 +405,32 @@ public class ScanQrCodeActivity extends FragmentActivity {
         //扫描成功之后的振动与声音提示
         RxBeepTool.playBeep(this,vibrate);
 
-        String result1 = result.getText();
+        final String result1 = result.getText();
         Log.v("二维码/条形码 扫描结果",result1);
-        //TODO:处理扫描结果
-        //TODO:
+        //处理扫描结果
+        if(result1.contains("taobao.com")) {
+            //属于我们淘宝联盟的二维码
+            //跳转到淘口令界面
+            TicketUtil.toTicketPage(this,new IBaseInfo() {
+                @Override
+                public String getCover() {
+                    return null;
+                }
+
+                @Override
+                public String getTitle() {
+                    return "";
+                }
+
+                @Override
+                public String getUrl() {
+                    return result1;
+                }
+            });
+        } else {
+            //非法二维码
+            ToastUtil.showToast("当前二维码非法");
+        }
         //https://uland.taobao.com/coupon/edetail?e=OwyBVueZ0vcNfLV8niU3R5TgU2jJNKOfNNtsjZw%2F%2FoL%2BZHQvX6JJlu1fOiOrbhH6L4jio71J6I835Lk0sqK5pMuRTiT9oEhVZV8pr6FWc0MEV%2FyxGS19s%2FZxCp96cM%2B0mMHpNfYdHdBwWfUaU7r%2BdMHdg8oYVc%2FsB3IEI%2FtGZdTSBjM3vXy9T344d%2BzmctAY&&app_pvid=59590_11.132.118.161_667_1586331473930&ptl=floorId:31539;app_pvid:59590_11.132.118.161_667_1586331473930;tpp_pvid:&union_lens=lensId%3AOPT%401586331474%400b8476a1_0f85_17158b958c3_3370%4001
         //if(mScannerListener == null) {
         //    RxToast.success(result1);

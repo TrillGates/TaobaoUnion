@@ -36,7 +36,7 @@
             android:id="@+id/ticket_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray" />
+            android:src="@mipmap/no_image" />
 
 
         <com.sunofbeaches.taobaounion.ui.custom.LoadingView
